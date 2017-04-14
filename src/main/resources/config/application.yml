@@ -1,0 +1,47 @@
+# Development Profile connected to local mysql
+spring:
+  profiles: dev
+  datasource:
+    url: ${CELLAR_CON_STRING_DEV}
+    username: ${CELLAR_USER_DEV}
+    password: ${CELLAR_PASS_DEV}
+  jpa:
+    properties:
+      hibernate:
+        ddl: none
+        show_sql: true
+        format_sql: true
+  mail:
+    host: localhost
+    port: 25
+    doNotReply: do-not-reply@thecellar.com
+
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+
+  urls:
+    server: localhost:8080
+---
+
+# Profile for production
+
+spring:
+  profiles: prod
+  datasource:
+    url: ${CELLAR_CON_STRING_PROD}
+    username: ${CELLAR_PASS_PROD}
+    password: ${CELLAR_USER_PROD}
+  jpa:
+    properties:
+      hibernate:
+        ddl: none
+        show_sql: false
+        format_sql: true
+
+---
+# Add more profiles below

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/email">
+<head>
+</head>
+<body>
+<div layout:fragment="content">
+    <p><span th:text="${name}"></span>,</p>
+    <p>This email was recently registered at The Cellar. If you did not do this, you need not take any action, the
+    registration associate to this email wil be deleted in 48 hours.</p>
+    <p>If you would like to continue your registration please click the following link
+        <a th:text="${urlToVerifyEmail}" th:href="${urlToVerifyEmail}"></a></p>
+</div>
+</body>
+</html>

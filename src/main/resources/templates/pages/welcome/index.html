@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/empty">
+
+<head>
+
+    <title>Welcome</title>
+
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!-- Welcome Page -->
+    <div class="row force-to-bottom">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-transparent">
+                <div class="panel-heading text-center">
+                    <h1>Welcome to The Cellar</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        <p>The Cellar is Saint Louis' premiere beer exchange site. This beer enthusiast web site is for members only.</p>
+                        <p>Members are able to upload their cellar inventory and list items on the trading block for other users to see.</p>
+                        <p>If you find something on the trading block, feel free to make an offer to the owner of the item.</p>
+                        <p>Users are responsible for their own transactions and actions.  The Cellar and the ownership group is not
+                            in any way liable for the actions of the users.  This site was developed for fun, not to make money.  Please
+                            treat all interactions as though you were speaking to your grandmother.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Members will all be reviewed upon registration.  We are looking for members interested in participating
+                            in mutually beneficial trades.</p>
+                        <p>If you  are already a member, <a th:href="@{/dashboard}">click here to log in</a>.</p>
+                        <p>If you would like to register as a new user, <a th:href="@{/register}">click here</a>.</p>
+                        <p>Again,  all users will be verified prior to being able to access.  You may receive an email for the
+                            site administrator verifying your identitiy prior to getting credentials.  It isn't a big process, we are just trying
+                            to eliminate spamers, scamers, and bots.  The extra layer of security is to protect you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Welcome Page -->
+
+</div>
+
+</body>
+
+</html>

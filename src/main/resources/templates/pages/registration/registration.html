@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
+
+<head>
+
+    <title>Registration</title>
+
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Registration Page -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-transparent">
+                <div class="panel-heading text-center">
+                    <h1>Registration</h1>
+                </div>
+                <div class="panel-body">
+                    <form method="post" th:object="${userRegForm}" enctype="utf8">
+                        <div class="form-group">
+                            <p class="form-error pull-right" th:each="error: ${#fields.errors('email')}" th:text="${' ' + error}">Validation Error</p>
+                            <label for="email">Email Address</label>
+                            <input type="email" autofocus="autofocus" class="form-control" aria-describedby="emailHelp" id="email" placeholder="Enter email" th:field="*{email}" />
+                            <small id="emailHelp" class="form-text text-muted">You will be contacted at this email address to verify.  This will also be used as your username.</small>
+                        </div>
+                        <div class="form-group">
+                            <p class="form-error pull-right" th:each="error: ${#fields.errors('firstName')}" th:text="${' ' + error}">Validation Error</p>
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                        </div>
+                        <div class="form-group">
+                            <p class="form-error pull-right" th:each="error: ${#fields.errors('lastName')}" th:text="${' ' + error}">Validation Error</p>
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                        </div>
+                        <div class="form-group">
+                            <p class="form-error pull-right" th:each="error: ${#fields.errors('phoneNumber')}" th:text="${' ' + error}">Validation Error</p>
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="tel" class="form-control" aria-describedby="phoneNumberHelp" id="phoneNumber" th:field="*{phoneNumber}" />
+                            <small id="phoneNumberHelp" class="form-text text-muted">Please enter a valid phone number to better facilitate trades.</small>
+                        </div>
+                        <div class="form-group">
+                            <p class="form-error pull-right" th:each="error: ${#fields.errors('password')}" th:text="${' ' + error}">Validation Error</p>
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" />
+                        </div>
+                        <div class="form-group">
+                            <p class="form-error pull-right" th:each="error: ${#fields.errors('global')}" th:text="${' ' + error}">Validation Error</p>
+                            <label for="password">Re-Enter Password</label>
+                            <input type="password" class="form-control" id="passwordAgain" th:field="*{passwordAgain}" />
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-default" th:href="@{/}">Main Page</a>
+                            <a class="btn btn-default" th:href="@{/dashboard}">Login</a>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Registration Page -->
+
+</div>
+
+</body>
+
+</html>

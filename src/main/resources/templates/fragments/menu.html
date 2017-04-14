@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+<body>
+
+<nav class="menu" id="theMenu">
+    <div class="menu-wrap">
+        <h1 class="logo"><a>The Cellar</a></h1>
+        <i class="icon-remove menu-close"></i>
+        <a th:href="@{/dashboard}" class="smoothScroll">Dashboard</a>
+        <a th:href="@{/inventory}" class="smoothScroll">Inventory</a>
+        <a th:href="@{/logout}" class="smoothScroll">Logout</a>
+    </div>
+
+    <!-- Menu button -->
+    <div id="menuToggle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+    <!-- /Menu Button -->
+
+</nav>
+
+</body>
+</html>

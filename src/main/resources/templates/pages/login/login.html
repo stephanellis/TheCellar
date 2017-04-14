@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/empty">
+
+<head>
+
+    <title>Login</title>
+
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Login Form-->
+    <div class="col-md-2 col-md-offset-5" id="login-form">
+        <form class="form-sign-in" th:action="@{/login}" method="post">
+            <h2 class="form-sign-in-heading">Please login</h2>
+            <p th:if="${param.error}" class="form-error">Something went wrong during your login.</p>
+            <input type="text" class="form-control" id="lg_username" name="username" placeholder="Email Address" required="" autofocus="" />
+            <input type="password" class="form-control" id="lg_password" name="password" placeholder="Password" required=""/>
+            <div class="checkbox">
+                <label><input type="checkbox" value=""/>Remember Me</label>
+            </div>
+            <button class="btn btn-lg btn-gray btn-block login-button" type="submit">Login</button>
+        </form>
+    </div>
+    <!-- /Login Form-->
+
+</div>
+
+</body>
+
+</html>
