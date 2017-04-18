@@ -1,5 +1,8 @@
 package com.ronbreier.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -16,33 +19,43 @@ public class Beer implements Serializable, Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "beer_id", nullable=false)
+    @JsonProperty("beerId")
     private Long beerId;
 
     @Column(name = "beer_api_ref")
+    @JsonProperty("beerApiRef")
     private String beerApiRef;
 
     @Column(name = "abv")
+    @JsonProperty("abv")
     private Double abv;
 
     @Column(name = "beer_name", nullable=false)
+    @JsonProperty("name")
     private String name;
 
     @Column(name = "brewer", nullable=false)
+    @JsonProperty("brewer")
     private String brewer;
 
     @Column(name = "style")
+    @JsonProperty("style")
     private String style;
 
     @Column(name = "description")
+    @JsonProperty("description")
     private String description;
 
     @Column(name = "glassware")
+    @JsonProperty("glassware")
     private String glassware;
 
     @Column(name = "beer_year")
+    @JsonProperty("year")
     private String year;
 
     @ManyToMany(mappedBy="beerList", fetch=FetchType.LAZY)
+    @JsonIgnore
     public List<User> users;
 
     public String getYear() {
