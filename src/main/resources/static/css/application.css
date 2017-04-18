@@ -257,3 +257,7 @@ a:active {
 .form-error{
     color: red;
 }
+
+tr{
+    background-color: inherit !important;
+}

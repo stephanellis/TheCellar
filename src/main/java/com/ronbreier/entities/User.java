@@ -4,6 +4,8 @@ package com.ronbreier.entities;
  * Created by ron.breier on 4/7/2017.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ronbreier.forms.UserRegistrationForm;
 import org.apache.commons.lang.WordUtils;
 
@@ -23,32 +25,41 @@ public class User implements Serializable, Comparable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable=false)
+    @JsonProperty("userId")
     private Long userId;
 
     @Column(name="username", nullable=false, unique=true)
+    @JsonProperty("username")
     private String username;
 
     @Column(name="first_name", nullable=false)
+    @JsonProperty("firstName")
     private String firstName;
 
     @Column(name="last_name", nullable=false)
+    @JsonProperty("lastName")
     private String lastName;
 
     @Column(name="phone_number", nullable=false)
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
 
     @Column(name="password", nullable=false)
+    @JsonIgnore
     private String password;
 
     @Column(name="login_count", nullable=false)
+    @JsonProperty("loginCount")
     private Integer loginCount;
 
     @Column(name="enabled")
+    @JsonIgnore
     private int enabled;
 
     @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(name = "user_beer_links", joinColumns = @JoinColumn(name = "beer_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "beer_id"))
+    @JsonProperty("beerList")
     private List<Beer> beerList;
 
     public Long getUserId() {

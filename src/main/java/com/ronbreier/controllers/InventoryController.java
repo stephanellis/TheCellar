@@ -6,6 +6,7 @@ import com.ronbreier.repositories.BeerRepository;
 import com.ronbreier.security.CustomUserDetails;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 
 @Controller
+@PreAuthorize("hasAnyRole('USER')")
 @RequestMapping("/inventory")
 public class InventoryController {
 
@@ -26,11 +28,8 @@ public class InventoryController {
     private BeerRepository beerRepository;
 
     @GetMapping
-    public String getInventoryPage(@ActiveUser CustomUserDetails userDetails, Model model){
+    public String getInventoryPage(@ActiveUser CustomUserDetails userDetails){
         LOGGER.info("Navigating to the Inventory Page for " + userDetails.getUsername());
-        List<Beer> inventory = beerRepository.findBeersByUsers(userDetails.getUser());
-        LOGGER.info(inventory);
-        model.addAttribute("inventory", inventory);
         return "pages/user/inventory";
     }
 

@@ -15,4 +15,17 @@ $(function(){
         }
     });
 
+    // Initializes Inventory Table
+    var inventoryTable = $('#inventory-table').DataTable({
+        ajax: "/rest/inventory/1",
+        type: "get",
+        columns: [
+            {data: "brewer"},
+            {data: "name"},
+            {data: "style"},
+            {data: "year"},
+            {data: "abv"}
+        ]
+    });
+
 })
