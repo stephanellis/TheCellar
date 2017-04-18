@@ -32,6 +32,8 @@ public class InventoryRestController {
     public DataTablesResponse<Beer> getInvertoryForUser(@PathVariable("userId") Long userId){
         User user = userRepository.getOne(userId);
         LOGGER.info("Getting inventory for user " + user );
-        return new DataTablesResponse<Beer>(beerRepository.findBeersByUsers(user));
+        DataTablesResponse<Beer> inventory = new DataTablesResponse<Beer>(beerRepository.findBeersByUsers(user));
+        LOGGER.info(user.getUsername()  + " has " + inventory.getData().size() + " beers.");
+        return inventory;
     }
 }

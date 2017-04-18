@@ -10,7 +10,10 @@ import java.util.List;
 /**
  * Created by ron.breier on 4/13/2017.
  */
+
 public interface BeerRepository extends JpaRepository<Beer, Long> {
 
-    List<Beer> findBeersByUsers(@Param("users")User user);
+
+    List<Beer> findBeersByUsers(@Param("user") User user);
+
 }
