@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -54,9 +55,9 @@ public class Beer implements Serializable, Comparable {
     @JsonProperty("year")
     private String year;
 
-    @ManyToMany(mappedBy="beerList", fetch=FetchType.LAZY)
     @JsonIgnore
-    public List<User> users;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "beer")
+    private List<UserBeerLink> userBeerLinks = new ArrayList<>();
 
     public String getYear() {
         return year;
@@ -66,12 +67,12 @@ public class Beer implements Serializable, Comparable {
         this.year = year;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserBeerLink> getUserBeerLinks() {
+        return userBeerLinks;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserBeerLinks(List<UserBeerLink> userBeerLinks) {
+        this.userBeerLinks = userBeerLinks;
     }
 
     public Long getBeerId() {

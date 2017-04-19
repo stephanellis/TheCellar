@@ -20,11 +20,12 @@ $(function(){
         ajax: "/rest/inventory/1",
         type: "get",
         columns: [
-            {data: "brewer"},
-            {data: "name"},
-            {data: "style"},
-            {data: "year"},
-            {data: "abv"}
+            {data: "beer.brewer"},
+            {data: "beer.name"},
+            {data: "beer.style"},
+            {data: "beer.year"},
+            {data: "beer.abv"},
+            {data: "count"}
         ]
     });
 

@@ -11,6 +11,7 @@ import org.apache.commons.lang.WordUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,11 +57,9 @@ public class User implements Serializable, Comparable{
     @JsonIgnore
     private int enabled;
 
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name = "user_beer_links", joinColumns = @JoinColumn(name = "beer_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "beer_id"))
-    @JsonProperty("beerList")
-    private List<Beer> beerList;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<UserBeerLink> userBeerLinks = new ArrayList<>();
 
     public Long getUserId() {
         return userId;
@@ -130,12 +129,12 @@ public class User implements Serializable, Comparable{
         return WordUtils.capitalizeFully(getFirstName() + " " + getLastName());
     }
 
-    public List<Beer> getBeerList() {
-        return beerList;
+    public List<UserBeerLink> getUserBeerLinks() {
+        return userBeerLinks;
     }
 
-    public void setBeerList(List<Beer> beerList) {
-        this.beerList = beerList;
+    public void setUserBeerLinks(List<UserBeerLink> userBeerLinks) {
+        this.userBeerLinks = userBeerLinks;
     }
 
     public User(){
@@ -161,7 +160,7 @@ public class User implements Serializable, Comparable{
         this.enabled = user.enabled;
         this.phoneNumber = user.phoneNumber;
         this.loginCount = user.loginCount;
-        this.beerList = user.beerList;
+        this.userBeerLinks = user.userBeerLinks;
     }
 
     @Override
