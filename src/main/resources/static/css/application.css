@@ -261,3 +261,15 @@ a:active {
 tr{
     background-color: inherit !important;
 }
+
+.themed-modal{
+    color: #8c97a6 !important;
+}
+
+.themed-modal .modal-header{
+    text-align: center;
+}
+
+.themed-modal .modal-body{
+    padding-bottom: 25px;
+}

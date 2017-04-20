@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+<body>
+
+    <div class="row">
+        <div th:id="add-beer-modal" class="modal fade themed-modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Beer To Inventory</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-10 col-md-offset-1">
+                            <form th:action="@{/rest/inventory/add/item}"  method="post" th:object="${addBeerForm}" enctype="utf8">
+                                <p th:if="${param.error}" class="form-error">Something went wrong adding your beer.</p>
+                                <div class="form-group">
+                                    <p class="form-error pull-right" th:each="error: ${#fields.errors('brewer')}" th:text="${' ' + error}">Validation Error</p>
+                                    <label for="brewer">Brewer</label>
+                                    <input type="text" class="form-control" id="brewer" th:field="*{brewer}" />
+                                </div>
+                                <div class="form-group">
+                                    <p class="form-error pull-right" th:each="error: ${#fields.errors('style')}" th:text="${' ' + error}">Validation Error</p>
+                                    <label for="style">Style</label>
+                                    <input type="text" class="form-control" id="style" th:field="*{style}" />
+                                </div>
+
+                                <div class="form-group">
+                                    <p class="form-error pull-right" th:each="error: ${#fields.errors('beerName')}" th:text="${' ' + error}">Validation Error</p>
+                                    <label for="beerName">Beer Name</label>
+                                    <input type="text" class="form-control" id="beerName" th:field="*{beerName}" />
+                                </div>
+                                <div class="form-group">
+                                    <p class="form-error pull-right" th:each="error: ${#fields.errors('abv')}" th:text="${' ' + error}">Validation Error</p>
+                                    <label for="abv">Alcohol By Volume</label>
+                                    <input type="text" class="form-control" id="abv" th:field="*{abv}" />
+                                </div>
+                                <div class="form-group">
+                                    <p class="form-error pull-right" th:each="error: ${#fields.errors('count')}" th:text="${' ' + error}">Validation Error</p>
+                                    <label for="count">Count on Hand</label>
+                                    <input type="text" class="form-control" id="count" th:field="*{count}" />
+                                </div>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="btn-group pull-right">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

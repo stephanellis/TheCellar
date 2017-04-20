@@ -137,6 +137,14 @@ public class User implements Serializable, Comparable{
         this.userBeerLinks = userBeerLinks;
     }
 
+    public void addUserBeerLink(UserBeerLink userBeerLink){
+        this.userBeerLinks.add(userBeerLink);
+    }
+
+    public void addUserBeerLinks(List<UserBeerLink> userBeerLinks){
+        this.userBeerLinks.addAll(userBeerLinks);
+    }
+
     public User(){
         // Zero Argument Constructor to satisfy JPA
     }

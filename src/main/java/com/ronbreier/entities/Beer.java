@@ -2,6 +2,7 @@ package com.ronbreier.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ronbreier.forms.AddBeerForm;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -137,6 +138,17 @@ public class Beer implements Serializable, Comparable {
 
     public void setGlassware(String glassware) {
         this.glassware = glassware;
+    }
+
+    public Beer(){
+        // Zero Arg Constructor to satisfy JPA
+    }
+
+    public Beer(AddBeerForm form){
+        this.brewer = form.getBrewer();
+        this.name = form.getBeerName();
+        this.abv = form.getAbv();
+        this.style = form.getStyle();
     }
 
     @Override

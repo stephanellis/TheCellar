@@ -17,7 +17,8 @@ $(function(){
 
     // Initializes Inventory Table
     var inventoryTable = $('#inventory-table').DataTable({
-        ajax: "/rest/inventory/1",
+        ajax: "/rest/inventory",
+        dom: 'Bfrtip',
         type: "get",
         columns: [
             {data: "beer.brewer"},
@@ -26,6 +27,14 @@ $(function(){
             {data: "beer.year"},
             {data: "beer.abv"},
             {data: "count"}
+        ],
+        buttons:[
+            {
+                text: "Add Beer",
+                action: function (e, dt, node, config){
+                    $('#add-beer-modal').modal('show');
+                }
+            }
         ]
     });
 

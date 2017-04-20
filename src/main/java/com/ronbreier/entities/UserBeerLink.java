@@ -31,6 +31,16 @@ public class UserBeerLink implements Serializable {
     @Column(name="count", nullable=false)
     private Long count;
 
+    public UserBeerLink(){
+        // Zero Arg Constructor to satisfy JPA
+    }
+
+    public UserBeerLink(User user, Beer beer, Long count){
+        this.user = user;
+        this.beer = beer;
+        this.count = count;
+    }
+
     public Long getUserBeerLinkId() {
         return userBeerLinkId;
     }
