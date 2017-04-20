@@ -41,8 +41,9 @@
                 <!-- Display this div only if the user does not have beers on record. -->
                 <div class="panel-body table-responsive" th:if="${!hasInventory}">
                     <!-- Add first beer panel -->
-                    <div class="col-md-2 col-md-offset-5">
-                        <p>Click <a href="#" >here</a> to add your first beer.</p>
+                    <div class="col-md-2 col-md-offset-5 text-center">
+                        <p>It looks like you haven't created an inventory yet.</p>
+                        <p>Click <a id="activate-beer-modal" >here</a> to add your first beer.</p>
                     </div>
                     <!-- /Add first beer panel -->
                 </div>

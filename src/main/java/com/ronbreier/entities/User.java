@@ -1,9 +1,5 @@
 package com.ronbreier.entities;
 
-/**
- * Created by ron.breier on 4/7/2017.
- */
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ronbreier.forms.UserRegistrationForm;
@@ -13,7 +9,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Ron Breier on 4/7/2017.

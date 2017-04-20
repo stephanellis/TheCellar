@@ -38,4 +38,10 @@ $(function(){
         ]
     });
 
+    // Opens New Beer Model for first beer
+    $('#activate-beer-modal').on('click', function(){
+        $('#add-beer-modal').modal('show');
+    });
+
+
 })
