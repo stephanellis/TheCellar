@@ -43,5 +43,43 @@ $(function(){
         $('#add-beer-modal').modal('show');
     });
 
+    // clears inputs and error message from modal every time it is shown
+    $('#add-beer-modal').on('show.bs.modal', function(){
+        $('#add-beer-form-error').text("");
+        $('#add-beer-modal :input').val('');
+    });
+
+    // adds beer name to successful addition modal
+    $('#add-beer-success-modal').on('show.bs.modal', function(){
+        $('#successfully-added-beer-name').text($('#beerName').val());
+    });
+
+    // Submits Add New Beer Form to API
+    $('#submit-add-beer-form').on('click', function(){
+        $.ajax({
+            url: "/rest/inventory/add/item",
+            type: "POST",
+            data: {
+                brewer: $('#brewer').val(),
+                style: $('#style').val(),
+                beerName: $('#beerName').val(),
+                abv: $('#abv').val(),
+                count: $('#count').val()
+            },
+            success: function(){
+                $('#add-beer-modal').modal('hide');
+                inventoryTable.ajax.reload();
+                $('#add-beer-modal').one('hidden.bs.modal', function(){
+                    $('#add-beer-success-modal').modal('show');
+                });
+            },
+            error:  function(){
+                $('#add-beer-form-error').text("Something went wrong. Please check your input and try again.");
+            }
+
+        })
+
+    });
+
 
 })
