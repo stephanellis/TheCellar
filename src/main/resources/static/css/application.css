@@ -262,6 +262,10 @@ tr{
     background-color: inherit !important;
 }
 
+.selected{
+    background-color: gray !important;
+}
+
 .themed-modal{
     color: #8c97a6 !important;
 }

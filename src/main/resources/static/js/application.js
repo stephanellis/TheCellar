@@ -20,6 +20,9 @@ $(function(){
         ajax: "/rest/inventory",
         dom: 'Bfrtip',
         type: "get",
+        select: {
+            style: 'single'
+        },
         columns: [
             {data: "beer.brewer"},
             {data: "beer.name"},
@@ -33,6 +36,22 @@ $(function(){
                 text: "Add Beer",
                 action: function (e, dt, node, config){
                     $('#add-beer-modal').modal('show');
+                }
+            },
+            {
+                text: "Edit Beer",
+                enabled: false,
+                className: 'requireSelection',
+                action: function (e, dt, node, config){
+                    $('#edit-beer-model').modal('show');
+                }
+            },
+            {
+                text: "Delete Beer",
+                enabled: false,
+                className: 'requireSelection',
+                action: function (e, dt, node, config){
+
                 }
             }
         ]
@@ -81,5 +100,18 @@ $(function(){
 
     });
 
+    // enables buttons upon any selection
+    inventoryTable.on('select', function(){
+        var selectedRows = inventoryTable.rows({selected: true}).count();
+        inventoryTable.button(1).enable(selectedRows>0);
+        inventoryTable.button(2).enable(selectedRows>0);
+    });
+
+    // disables buttons upon removal of all selection
+    inventoryTable.on('deselect', function(){
+        var selectedRows = inventoryTable.rows({selected: true}).count();
+        inventoryTable.button(1).enable(selectedRows>0);
+        inventoryTable.button(2).enable(selectedRows>0);
+    });
 
 })
