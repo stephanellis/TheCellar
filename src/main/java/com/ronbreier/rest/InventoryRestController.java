@@ -83,7 +83,12 @@ public class InventoryRestController {
             LOGGER.info("Deleted User Beer Link " + ubl);
             response.setStatus(HttpServletResponse.SC_OK);
         }
+    }
 
-
+    @GetMapping("/find/item/{link_id}")
+    public UserBeerLink getInventoryItem(@ActiveUser CustomUserDetails userDetails,
+                 @PathVariable("link_id") Long linkId){
+        LOGGER.info("Getting invintory ite with link " + linkId);
+        return userBeerLinkRepository.findOne(linkId);
     }
 }

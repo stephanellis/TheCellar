@@ -47,7 +47,25 @@ $(function(){
                 enabled: false,
                 className: 'requireSelection',
                 action: function (e, dt, node, config){
-                    $('#edit-beer-model').modal('show');
+                    var selectedRow;
+                    var selectedBeerName;
+                    $.each($("#inventory-table tr.selected"), function(){
+                        selectedRow = ($(this).find('td').eq(0).find('.hidden-pk').text());
+                        selectedBeerName = ($(this).find('td').eq(1).text());
+                    });
+                    $.ajax({
+                        url: "/rest/inventory/find/item/" + selectedRow,
+                        type: "GET",
+                        success: function(data){
+                            console.log(data);
+                            $('#edit-beer-modal').modal('show');
+                            $('#brewer-edit').val(data.beer.brewer);
+                            $('#beerName-edit').val(data.beer.name);
+                            $('#style-edit').val(data.beer.style);
+                            $('#abv-edit').val(data.beer.abv);
+                            $('#count-edit').val(data.count);
+                        }
+                    });
                 }
             },
             {
