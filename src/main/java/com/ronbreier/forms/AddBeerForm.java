@@ -1,0 +1,82 @@
+package com.ronbreier.forms;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+/**
+ * Created by Ron Breier on 4/20/2017.
+ */
+
+public class AddBeerForm {
+
+    @NotNull
+    @NotEmpty
+    @Size(min=1, max=50)
+    private String brewer;
+
+    @NotNull
+    @NotEmpty
+    @Size(min=1, max=50)
+    private String style;
+
+    @NotNull
+    @NotEmpty
+    @Size(min=1, max=50)
+    private String beerName;
+
+    private Double abv;
+
+    private Long count;
+
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
+    }
+
+    public String getBrewer() {
+        return brewer;
+    }
+
+    public void setBrewer(String brewer) {
+        this.brewer = brewer;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getBeerName() {
+        return beerName;
+    }
+
+    public void setBeerName(String beerName) {
+        this.beerName = beerName;
+    }
+
+    public Double getAbv() {
+        return abv;
+    }
+
+    public void setAbv(Double abv) {
+        this.abv = abv;
+    }
+
+    @Override
+    public String toString() {
+        return "AddBeerForm{" +
+                "brewer='" + brewer + '\'' +
+                ", style='" + style + '\'' +
+                ", beerName='" + beerName + '\'' +
+                ", abv=" + abv +
+                '}';
+    }
+}

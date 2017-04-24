@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS email_verification_tokens (
 CREATE TABLE IF NOT EXISTS beers (
     beer_id INTEGER NOT NULL AUTO_INCREMENT,
     beer_api_ref VARCHAR(25),
-    abv DECIMAL,
+    abv DECIMAL(10,4),
     beer_name VARCHAR(75) NOT NULL,
     brewer VARCHAR(75) NOT NULL,
     style VARCHAR(75),
@@ -61,9 +61,12 @@ CREATE TABLE IF NOT EXISTS beers (
     -- Table structure for user_beer_links
     -- ----------------------------
 CREATE TABLE IF NOT EXISTS user_beer_links (
+    user_beer_link_id INTEGER NOT NULL AUTO_INCREMENT,
     user_id INTEGER NOT NULL,
     beer_id INTEGER NOT NULL,
-    PRIMARY KEY (user_id,beer_id),
+    count INTEGER NOT NULL,
+    PRIMARY KEY (user_beer_link_id),
+    UNIQUE (user_id,beer_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (beer_id) REFERENCES beers(beer_id)
 );

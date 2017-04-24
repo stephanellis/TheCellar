@@ -15,12 +15,17 @@
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 
+    <!-- Datatables CSS -->
+    <link th:href="@{/css/datatables.bootstrap.css}" rel="stylesheet" />
+
+    <!-- Datatables Buttons CSS -->
+    <link href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.css" rel="stylesheet" />
+
+    <!-- Datatables Select CSS -->
+    <link th:href="@{/css/select.dataTables.min.css}" rel="stylesheet" />
+
     <!-- Custom CSS -->
     <link th:href="@{/css/application.css}" rel="stylesheet" />
-
-    <!-- Datatables CSS -->
-    <link th:href="@{/css/jquery.datatables.css}" rel="stylesheet" />
-    <link th:href="@{/css/datatables.bootstrap.css}" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,12 +43,19 @@
     <!-- SmoothScroll -->
     <script th:src="@{/js/smoothscroll.js}"></script>
 
-    <!-- Application Javascript -->
-    <script th:src="@{/js/application.js}"></script>
-
     <!-- Datatables Javascript -->
     <script th:src="@{/js/jquery.datatables.js}"></script>
     <script th:src="@{/js/datatables.bootstrap.js}"></script>
+
+    <!-- Datatables Buttons Javascript -->
+    <script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.bootstrap.js"></script>
+
+    <!-- Datatables Select Javascript -->
+    <script th:src="@{/js/dataTables.select.min.js}"></script>
+
+    <!-- Application Javascript -->
+    <script th:src="@{/js/application.js}"></script>
 
     <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">The Cellar</title>
 

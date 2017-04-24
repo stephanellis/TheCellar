@@ -1,9 +1,5 @@
 package com.ronbreier.entities;
 
-/**
- * Created by ron.breier on 4/7/2017.
- */
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ronbreier.forms.UserRegistrationForm;
@@ -11,8 +7,8 @@ import org.apache.commons.lang.WordUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Ron Breier on 4/7/2017.
@@ -56,11 +52,9 @@ public class User implements Serializable, Comparable{
     @JsonIgnore
     private int enabled;
 
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name = "user_beer_links", joinColumns = @JoinColumn(name = "beer_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "beer_id"))
-    @JsonProperty("beerList")
-    private List<Beer> beerList;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<UserBeerLink> userBeerLinks = new ArrayList<>();
 
     public Long getUserId() {
         return userId;
@@ -130,12 +124,20 @@ public class User implements Serializable, Comparable{
         return WordUtils.capitalizeFully(getFirstName() + " " + getLastName());
     }
 
-    public List<Beer> getBeerList() {
-        return beerList;
+    public List<UserBeerLink> getUserBeerLinks() {
+        return userBeerLinks;
     }
 
-    public void setBeerList(List<Beer> beerList) {
-        this.beerList = beerList;
+    public void setUserBeerLinks(List<UserBeerLink> userBeerLinks) {
+        this.userBeerLinks = userBeerLinks;
+    }
+
+    public void addUserBeerLink(UserBeerLink userBeerLink){
+        this.userBeerLinks.add(userBeerLink);
+    }
+
+    public void addUserBeerLinks(List<UserBeerLink> userBeerLinks){
+        this.userBeerLinks.addAll(userBeerLinks);
     }
 
     public User(){
@@ -161,7 +163,7 @@ public class User implements Serializable, Comparable{
         this.enabled = user.enabled;
         this.phoneNumber = user.phoneNumber;
         this.loginCount = user.loginCount;
-        this.beerList = user.beerList;
+        this.userBeerLinks = user.userBeerLinks;
     }
 
     @Override
@@ -180,5 +182,31 @@ public class User implements Serializable, Comparable{
     @Override
     public int compareTo(Object o) {
         return this.getUsername().compareTo(((User)o).getUsername());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (userId != null ? !userId.equals(user.userId) : user.userId != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
+        return password != null ? password.equals(user.password) : user.password == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userId != null ? userId.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
     }
 }

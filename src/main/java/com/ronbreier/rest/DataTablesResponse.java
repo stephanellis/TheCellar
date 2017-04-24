@@ -2,6 +2,7 @@ package com.ronbreier.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,11 +11,10 @@ import java.util.List;
 public class DataTablesResponse<T> {
 
     @JsonProperty("data")
-    private List<T> data;
+    private List<T> data = new ArrayList<T>();
 
     public DataTablesResponse(List<T> data) {
         this.data = data;
-
     }
 
     public List<T> getData() {
