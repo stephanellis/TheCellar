@@ -59,6 +59,7 @@ $(function(){
                         success: function(data){
                             console.log(data);
                             $('#edit-beer-modal').modal('show');
+                            $('#editing-pk').val(selectedRow);
                             $('#brewer-edit').val(data.beer.brewer);
                             $('#beerName-edit').val(data.beer.name);
                             $('#style-edit').val(data.beer.style);
@@ -165,5 +166,40 @@ $(function(){
         inventoryTable.button(2).enable(selectedRows>0);
     });
 
+    // Submits Add New Beer Form to API
+    $('#submit-edit-beer-form').on('click', function(){
+        $.ajax({
+            url: "/rest/inventory/edit/item/" +  $('#editing-pk').val(),
+            type: "POST",
+            data: {
+                brewer: $('#brewer-edit').val(),
+                style: $('#style-edit').val(),
+                beerName: $('#beerName-edit').val(),
+                abv: $('#abv-edit').val(),
+                count: $('#count-edit').val()
+            },
+            success: function(){
+                $('#edit-beer-modal').modal('hide');
+                inventoryTable.ajax.reload();
+                $('#edit-beer-modal').one('hidden.bs.modal', function(){
+                    $('#edit-beer-success-modal').modal('show');
+                });
+            },
+            error:  function(){
+                $('#edit-beer-form-error').text("Something went wrong. Please check your input and try again.");
+            }
+        })
+    });
+
+    // adds beer name to successful edit modal
+    $('#edit-beer-success-modal').on('show.bs.modal', function(){
+        $('#successfully-edited-beer-name').text($('#beerName-edit').val());
+    });
+
+
+    // clears error message from modal every time it is shown
+    $('#edit-beer-modal').on('show.bs.modal', function(){
+        $('#edit-beer-form-error').text("");
+    });
 
 })

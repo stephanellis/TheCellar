@@ -111,6 +111,7 @@
                         <form  th:object="${addBeerForm}"  id="edit-beer-form" enctype="utf8">
                             <div class="col-md-10 col-md-offset-1">
                                 <p id="edit-beer-form-error" class="form-error" />
+                                <input type="hidden" id="editing-pk" />
                                 <div class="form-group">
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('brewer')}" th:text="${' ' + error}">Validation Error</p>
                                     <label for="brewer-edit">Brewer</label>
@@ -144,6 +145,26 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:id="edit-beer-success-modal" class="modal fade themed-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 text-center">
+                            <p>You successfully edited a beer in your inventory.</p>
+                            <p>Changes to <span id="successfully-edited-beer-name"></span> have been saved.</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -281,3 +281,15 @@ tr{
 .hidden-pk{
     display: none;
 }
+
+a.btn{
+    text-decoration: none !important;
+}
+
+a.btn :visited{
+    text-decoration: none !important;
+}
+
+a.btn :hover{
+    text-decoration: none !important;
+}

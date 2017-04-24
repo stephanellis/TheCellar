@@ -68,6 +68,25 @@ public class InventoryRestController {
         }
     }
 
+    @PostMapping("/edit/item/{link_id}")
+    public void editInventoryItem(@ActiveUser CustomUserDetails userDetails,
+                                 @ModelAttribute("userRegForm") @Valid AddBeerForm form, BindingResult result, Errors errors,
+                                 HttpServletResponse response, @PathVariable("link_id")Long linkID){
+        LOGGER.info("Posting edited inventory item for userId " + userDetails.getUserId());
+        LOGGER.info("Editing Link " + linkID);
+        if(result.hasErrors()){
+            LOGGER.info("There were errors on the add beer form");
+            errors.getAllErrors().stream().forEach(e -> LOGGER.info(e.toString()));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }else {
+            UserBeerLink ublEditing = userBeerLinkRepository.findOne(linkID);
+            ublEditing.editBeer(form);
+            userBeerLinkRepository.save(ublEditing);
+            LOGGER.info("Saved edited user beer link " + ublEditing);
+            response.setStatus(HttpServletResponse.SC_CREATED);
+        }
+    }
+
     @PostMapping("/delete/item")
     public void deleteInventoryItem(@ActiveUser CustomUserDetails userDetails, HttpServletResponse response,
                 @RequestParam("user_beer_link_id") Long beerLinkToDelete){

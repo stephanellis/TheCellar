@@ -1,6 +1,7 @@
 package com.ronbreier.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ronbreier.forms.AddBeerForm;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -71,6 +72,14 @@ public class UserBeerLink implements Serializable {
 
     public void setCount(Long count) {
         this.count = count;
+    }
+
+    public void editBeer(AddBeerForm form){
+        this.beer.setName(form.getBeerName());
+        this.beer.setAbv(form.getAbv());
+        this.beer.setBrewer(form.getBrewer());
+        this.beer.setStyle(form.getStyle());
+        this.setCount(form.getCount());
     }
 
     @Override
