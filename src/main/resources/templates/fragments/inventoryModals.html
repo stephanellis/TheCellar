@@ -78,5 +78,25 @@
         </div>
     </div>
 
+    <div th:id="delete-beer-success-modal" class="modal fade themed-modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1 text-center">
+                            <p>You successfully deleted a beer from your inventory.</p>
+                            <p><span id="successfully-deleted-beer-name"></span> has been deleted from your inventory.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

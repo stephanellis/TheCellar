@@ -277,3 +277,7 @@ tr{
 .themed-modal .modal-body{
     padding-bottom: 25px;
 }
+
+.hidden-pk{
+    display: none;
+}

@@ -24,7 +24,11 @@ $(function(){
             style: 'single'
         },
         columns: [
-            {data: "beer.brewer"},
+            {data: "beer.brewer",
+                 render: function(data, type, full, meta){
+                    return data + '<span class="hidden-pk">'+ full.user_beer_link_id + '</span>'
+                 }
+            },
             {data: "beer.name"},
             {data: "beer.style"},
             {data: "beer.year"},
@@ -51,10 +55,39 @@ $(function(){
                 enabled: false,
                 className: 'requireSelection',
                 action: function (e, dt, node, config){
+                    var selectedRow;
+                    var selectedBeerName;
+                    $.each($("#inventory-table tr.selected"), function(){
+                        selectedRow = ($(this).find('td').eq(0).find('.hidden-pk').text());
+                        selectedBeerName = ($(this).find('td').eq(1).text());
+                    });
+                    $.ajax({
+                        url: "/rest/inventory/delete/item",
+                        type: "POST",
+                        data: {
+                            user_beer_link_id: selectedRow
+                        },
+                        success: function(){
+                            inventoryTable.ajax.reload();
+                            $('#delete-beer-success-modal').modal('show');
+                            $('#successfully-deleted-beer-name').text(selectedBeerName);
+                        },
+                        error:  function(){
+                            alert('Something went wrong');
+                        }
 
+                    })
                 }
             }
         ]
+    });
+
+    inventoryTable.on( 'draw', function () {
+        inventoryTable.button(1).enable(false);
+        inventoryTable.button(2).enable(false);
+        $.each($("#inventory-table tr.selected"), function(){
+            selectedRow = ($(this).removeClass('selected'));
+        });
     });
 
     // Opens New Beer Model for first beer
@@ -113,5 +146,6 @@ $(function(){
         inventoryTable.button(1).enable(selectedRows>0);
         inventoryTable.button(2).enable(selectedRows>0);
     });
+
 
 })

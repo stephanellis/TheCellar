@@ -67,4 +67,23 @@ public class InventoryRestController {
             response.setStatus(HttpServletResponse.SC_CREATED);
         }
     }
+
+    @PostMapping("/delete/item")
+    public void deleteInventoryItem(@ActiveUser CustomUserDetails userDetails, HttpServletResponse response,
+                @RequestParam("user_beer_link_id") Long beerLinkToDelete){
+        LOGGER.info("Deleting inventory item for user " + userDetails.getUserId() );
+        LOGGER.info("Deleting Beer Link ID " + beerLinkToDelete);
+        UserBeerLink ubl = userBeerLinkRepository.findOne(beerLinkToDelete);
+        if (ubl == null || !ubl.getUser().equals(userDetails.getUser())){
+            LOGGER.info("Something went wrong");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } else{
+            LOGGER.info("Found User Beer Link " + ubl);
+            userBeerLinkRepository.delete(ubl);
+            LOGGER.info("Deleted User Beer Link " + ubl);
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+
+
+    }
 }

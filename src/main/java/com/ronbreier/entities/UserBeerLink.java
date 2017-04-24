@@ -73,4 +73,13 @@ public class UserBeerLink implements Serializable {
         this.count = count;
     }
 
+    @Override
+    public String toString() {
+        return "UserBeerLink{" +
+                "userBeerLinkId=" + userBeerLinkId +
+                ", user=" + user +
+                ", beer=" + beer +
+                ", count=" + count +
+                '}';
+    }
 }
