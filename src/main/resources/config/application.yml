@@ -27,21 +27,48 @@ spring:
   urls:
     server: localhost:8080
 ---
-
 # Profile for production
-
 spring:
-  profiles: prod
+  profiles: test
   datasource:
-    url: ${CELLAR_CON_STRING_PROD}
-    username: ${CELLAR_PASS_PROD}
-    password: ${CELLAR_USER_PROD}
+    url: ${CELLAR_CON_STRING_DEV}
+    username: ${CELLAR_USER_DEV}
+    password: ${CELLAR_PASS_DEV}
   jpa:
     properties:
       hibernate:
         ddl: none
-        show_sql: false
+        show_sql: true
         format_sql: true
+  mail:
+    host: ${CELLAR_MAIL_HOST_TEST}
+    doNotReply: ${CELLAR_MAIL_USER_TEST}
+    username: ${CELLAR_MAIL_USER_TEST}
+    password: ${CELLAR_MAIL_PASS_TEST}
+    properties:
+      mail:
+       smtp:
+        auth: true
+        starttls:
+          enable: true
+        ssl:
+          enable: true
+      socketFactory:
+        port: 587
+        class: javax.net.ssl.SSLSocketFactory
+        fallback: false
+    smtp:
+      port: 587
 
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+
+  urls:
+    server: http://test.ronbreier.com
 ---
 # Add more profiles below

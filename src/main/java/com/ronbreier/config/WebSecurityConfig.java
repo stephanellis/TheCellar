@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .headers()
-                .frameOptions().sameOrigin()
+                .frameOptions().disable()
             .and()
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**","/fonts/**","/images/**", "/", "/register", "/verifyemail/**")
