@@ -41,10 +41,10 @@ spring:
         show_sql: true
         format_sql: true
   mail:
-    host: smtp.gmail.com
-    doNotReply: the.cellar.stl@gmail.com
-    username: the.cellar.stl@gmail.com
-    password: MJU&nhy6BGT%vfr4
+    host: ${CELLAR_MAIL_HOST_TEST}
+    doNotReply: ${CELLAR_MAIL_USER_TEST}
+    username: ${CELLAR_MAIL_USER_TEST}
+    password: ${CELLAR_MAIL_PASS_TEST}
     properties:
       mail:
        smtp:
