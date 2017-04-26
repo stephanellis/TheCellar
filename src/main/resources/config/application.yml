@@ -26,6 +26,10 @@ spring:
 
   urls:
     server: localhost:8080
+
+  paths:
+    storagelocation: c:\
+
 ---
 # Profile for production
 spring:
@@ -70,5 +74,8 @@ spring:
 
   urls:
     server: http://test.ronbreier.com
+
+  paths:
+    storagelocation: c:\
 ---
 # Add more profiles below
