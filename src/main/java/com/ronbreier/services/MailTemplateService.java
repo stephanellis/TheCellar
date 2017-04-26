@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.persistence.Transient;
-
-
 /**
  * Created by ron.breier on 4/12/2017.
  */
@@ -32,6 +29,7 @@ public class MailTemplateService {
 
     @Autowired
     public MailTemplateService(TemplateEngine templateEngine) {
+        LOGGER.info(baseUrl);
         this.templateEngine = templateEngine;
     }
 
