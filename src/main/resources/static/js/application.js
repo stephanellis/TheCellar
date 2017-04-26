@@ -1,4 +1,7 @@
 $(function(){
+
+    var firstBeer = false;
+
     // Menu JS
     $('#menuToggle, .menu-close').on('click', function(){
         $('#menuToggle').toggleClass('active');
@@ -90,6 +93,14 @@ $(function(){
                             inventoryTable.ajax.reload();
                             $('#delete-beer-success-modal').modal('show');
                             $('#successfully-deleted-beer-name').text(selectedBeerName);
+                            $('#delete-beer-success-modal').one('hidden.bs.modal', function(){
+                                // check to see if table is empty
+                                if($("#inventory-table tbody tr td:first-child")[0].innerHTML == 'No data available in table'){
+                                    location.reload();
+                                }
+                            });
+
+
                         },
                         error:  function(){
                             alert('Something went wrong');
@@ -111,6 +122,7 @@ $(function(){
 
     // Opens New Beer Model for first beer
     $('#activate-beer-modal').on('click', function(){
+        firstBeer= true;
         $('#add-beer-modal').modal('show');
     });
 
@@ -139,6 +151,10 @@ $(function(){
             },
             success: function(){
                 $('#add-beer-modal').modal('hide');
+                if (firstBeer){
+                    firstBeer=false;
+                    location.reload();
+                }
                 inventoryTable.ajax.reload();
                 $('#add-beer-modal').one('hidden.bs.modal', function(){
                     $('#add-beer-success-modal').modal('show');
