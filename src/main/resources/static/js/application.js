@@ -1,7 +1,6 @@
 $(function(){
 
     var firstBeer = false;
-
     // Menu JS
     $('#menuToggle, .menu-close').on('click', function(){
         $('#menuToggle').toggleClass('active');
@@ -17,6 +16,10 @@ $(function(){
             $('#theMenu').toggleClass('menu-open');
         }
     });
+
+    $("#abv").slider();
+
+    $("#abv-edit").slider();
 
     // Initializes Inventory Table
     var inventoryTable = $('#inventory-table').DataTable({
@@ -60,14 +63,14 @@ $(function(){
                         url: "/rest/inventory/find/item/" + selectedRow,
                         type: "GET",
                         success: function(data){
-                            console.log(data);
                             $('#edit-beer-modal').modal('show');
                             $('#editing-pk').val(selectedRow);
                             $('#brewer-edit').val(data.beer.brewer);
                             $('#beerName-edit').val(data.beer.name);
                             $('#style-edit').val(data.beer.style);
-                            $('#abv-edit').val(data.beer.abv);
+                            $('#abv-edit-val').val(data.beer.abv);
                             $('#count-edit').val(data.count);
+                            $('#abv-edit').attr('data-slider-value',$('#adv-edit-val').val());
                         }
                     });
                 }

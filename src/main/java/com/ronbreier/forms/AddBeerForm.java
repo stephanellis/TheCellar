@@ -2,6 +2,8 @@ package com.ronbreier.forms;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,8 +28,12 @@ public class AddBeerForm {
     @Size(min=1, max=50)
     private String beerName;
 
+    @Min(0)
+    @Max(25)
     private Double abv;
 
+    @Min(0)
+    @Max(100000)
     private Long count;
 
     public Long getCount() {
