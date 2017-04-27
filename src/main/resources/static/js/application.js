@@ -34,7 +34,11 @@ $(function(){
             {data: "beer.name"},
             {data: "beer.style"},
             {data: "beer.year"},
-            {data: "beer.abv"},
+            {data: "beer.abv",
+                render: function(data, type, full, meta){
+                    return data + '%'
+                 }
+            },
             {data: "count"}
         ],
         buttons:[
@@ -42,7 +46,7 @@ $(function(){
                 text: "Add Beer",
                 action: function (e, dt, node, config){
                     $('#add-beer-modal').modal('show');
-                    $('#edit').slider('setValue',0);
+                    $('#abv').slider('setValue',0);
                 }
             },
             {
@@ -131,6 +135,10 @@ $(function(){
         $('#add-beer-modal :input').val('');
     });
 
+    $('#add-beer-modal').on('shown.bs.modal', function(){
+        $('#brewer').focus();
+    });
+
     // adds beer name to successful addition modal
     $('#add-beer-success-modal').on('show.bs.modal', function(){
         $('#successfully-added-beer-name').text($('#beerName').val());
@@ -215,6 +223,10 @@ $(function(){
     // clears error message from modal every time it is shown
     $('#edit-beer-modal').on('show.bs.modal', function(){
         $('#edit-beer-form-error').text("");
+    });
+
+    $('#edit-beer-modal').on('shown.bs.modal', function(){
+        $('#brewer-edit').focus();
     });
 
 })
