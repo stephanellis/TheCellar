@@ -29,7 +29,6 @@ public class MailTemplateService {
 
     @Autowired
     public MailTemplateService(TemplateEngine templateEngine) {
-        LOGGER.info(baseUrl);
         this.templateEngine = templateEngine;
     }
 

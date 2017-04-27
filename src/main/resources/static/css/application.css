@@ -294,3 +294,7 @@ a.btn :visited{
 a.btn :hover{
     text-decoration: none !important;
 }
+
+.slider.slider-horizontal{
+    width: 100%;
+}

@@ -1,4 +1,6 @@
 $(function(){
+
+    var firstBeer = false;
     // Menu JS
     $('#menuToggle, .menu-close').on('click', function(){
         $('#menuToggle').toggleClass('active');
@@ -32,7 +34,11 @@ $(function(){
             {data: "beer.name"},
             {data: "beer.style"},
             {data: "beer.year"},
-            {data: "beer.abv"},
+            {data: "beer.abv",
+                render: function(data, type, full, meta){
+                    return data + '%'
+                 }
+            },
             {data: "count"}
         ],
         buttons:[
@@ -40,6 +46,7 @@ $(function(){
                 text: "Add Beer",
                 action: function (e, dt, node, config){
                     $('#add-beer-modal').modal('show');
+                    $('#abv').slider('setValue',0);
                 }
             },
             {
@@ -57,14 +64,13 @@ $(function(){
                         url: "/rest/inventory/find/item/" + selectedRow,
                         type: "GET",
                         success: function(data){
-                            console.log(data);
                             $('#edit-beer-modal').modal('show');
                             $('#editing-pk').val(selectedRow);
                             $('#brewer-edit').val(data.beer.brewer);
                             $('#beerName-edit').val(data.beer.name);
                             $('#style-edit').val(data.beer.style);
-                            $('#abv-edit').val(data.beer.abv);
                             $('#count-edit').val(data.count);
+                            $('#abv-edit').slider('setValue',data.beer.abv);
                         }
                     });
                 }
@@ -90,6 +96,14 @@ $(function(){
                             inventoryTable.ajax.reload();
                             $('#delete-beer-success-modal').modal('show');
                             $('#successfully-deleted-beer-name').text(selectedBeerName);
+                            $('#delete-beer-success-modal').one('hidden.bs.modal', function(){
+                                // check to see if table is empty
+                                if($("#inventory-table tbody tr td:first-child")[0].innerHTML == 'No data available in table'){
+                                    location.reload();
+                                }
+                            });
+
+
                         },
                         error:  function(){
                             alert('Something went wrong');
@@ -111,6 +125,7 @@ $(function(){
 
     // Opens New Beer Model for first beer
     $('#activate-beer-modal').on('click', function(){
+        firstBeer= true;
         $('#add-beer-modal').modal('show');
     });
 
@@ -118,6 +133,10 @@ $(function(){
     $('#add-beer-modal').on('show.bs.modal', function(){
         $('#add-beer-form-error').text("");
         $('#add-beer-modal :input').val('');
+    });
+
+    $('#add-beer-modal').on('shown.bs.modal', function(){
+        $('#brewer').focus();
     });
 
     // adds beer name to successful addition modal
@@ -139,6 +158,10 @@ $(function(){
             },
             success: function(){
                 $('#add-beer-modal').modal('hide');
+                if (firstBeer){
+                    firstBeer=false;
+                    location.reload();
+                }
                 inventoryTable.ajax.reload();
                 $('#add-beer-modal').one('hidden.bs.modal', function(){
                     $('#add-beer-success-modal').modal('show');
@@ -200,6 +223,10 @@ $(function(){
     // clears error message from modal every time it is shown
     $('#edit-beer-modal').on('show.bs.modal', function(){
         $('#edit-beer-form-error').text("");
+    });
+
+    $('#edit-beer-modal').on('shown.bs.modal', function(){
+        $('#brewer-edit').focus();
     });
 
 })
