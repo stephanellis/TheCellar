@@ -17,10 +17,6 @@ $(function(){
         }
     });
 
-    $("#abv").slider();
-
-    $("#abv-edit").slider();
-
     // Initializes Inventory Table
     var inventoryTable = $('#inventory-table').DataTable({
         ajax: "/rest/inventory",
@@ -46,6 +42,7 @@ $(function(){
                 text: "Add Beer",
                 action: function (e, dt, node, config){
                     $('#add-beer-modal').modal('show');
+                    $('#edit').slider('setValue',0);
                 }
             },
             {
@@ -68,9 +65,8 @@ $(function(){
                             $('#brewer-edit').val(data.beer.brewer);
                             $('#beerName-edit').val(data.beer.name);
                             $('#style-edit').val(data.beer.style);
-                            $('#abv-edit-val').val(data.beer.abv);
                             $('#count-edit').val(data.count);
-                            $('#abv-edit').attr('data-slider-value',$('#adv-edit-val').val());
+                            $('#abv-edit').slider('setValue',data.beer.abv);
                         }
                     });
                 }

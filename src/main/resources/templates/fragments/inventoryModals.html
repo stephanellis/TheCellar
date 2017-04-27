@@ -37,8 +37,7 @@
                                 <div class="form-group">
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('abv')}" th:text="${' ' + error}">Validation Error</p>
                                     <label for="abv">Alcohol By Volume</label>
-                                    <input class="form-control" id="abv" th:field="*{abv}" data-provide="slider" data-slider-tooltip="always"
-                                           type="text" data-slider-min="0" data-slider-max="25" data-slider-step="0.1" />
+                                    <input class="form-control" id="abv" data-provide="slider" data-slider-tooltip="always" type="text" data-slider-min="0" data-slider-max="25" data-slider-step="0.1" th:field="*{abv}"/>
                                 </div>
                                 <div class="form-group">
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('count')}" th:text="${' ' + error}">Validation Error</p>
@@ -131,9 +130,7 @@
                                 <div class="form-group">
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('abv')}" th:text="${' ' + error}">Validation Error</p>
                                     <label for="abv-edit">Alcohol By Volume</label>
-                                    <input class="form-control" id="abv-edit" data-provide="slider" data-slider-tooltip="always"
-                                           type="text" data-slider-min="0" data-slider-max="25" data-slider-step="0.1" />
-                                    <input type="hidden" th:field="*{abv}" id="adv-edit-val" />
+                                    <input class="form-control" id="abv-edit" data-provide="slider" data-slider-tooltip="always" type="text" data-slider-min="0" data-slider-max="25" data-slider-step="0.1" th:field="*{abv}"/>
                                 </div>
                                 <div class="form-group">
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('count')}" th:text="${' ' + error}">Validation Error</p>
