@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout">
-
-<!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout" class="full">
 
 <head>
 
@@ -31,14 +29,11 @@
     <!-- Bootstrap Core JavaScript -->
     <script th:src="@{/js/bootstrap.min.js}"></script>
 
-    <!-- SmoothScroll -->
-    <script th:src="@{/js/smoothscroll.js}"></script>
-
     <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">The Cellar</title>
 
 </head>
 
-<body class="full">
+<body>
 
     <!-- Page Content -->
     <div layout:fragment="content"></div>

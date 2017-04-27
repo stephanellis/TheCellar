@@ -12,6 +12,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  min-height: 100%;
 }
 
 /* MENU CONF*/
@@ -256,4 +257,44 @@ a:active {
 
 .form-error{
     color: red;
+}
+
+tr{
+    background-color: inherit !important;
+}
+
+.selected{
+    background-color: gray !important;
+}
+
+.themed-modal{
+    color: #8c97a6 !important;
+}
+
+.themed-modal .modal-header{
+    text-align: center;
+}
+
+.themed-modal .modal-body{
+    padding-bottom: 25px;
+}
+
+.hidden-pk{
+    display: none;
+}
+
+a.btn{
+    text-decoration: none !important;
+}
+
+a.btn :visited{
+    text-decoration: none !important;
+}
+
+a.btn :hover{
+    text-decoration: none !important;
+}
+
+.slider.slider-horizontal{
+    width: 100%;
 }

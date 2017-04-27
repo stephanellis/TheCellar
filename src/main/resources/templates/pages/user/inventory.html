@@ -13,14 +13,15 @@
 
 <div layout:fragment="content">
 
-    <!-- Welcome Page -->
+    <!-- Inventory Page -->
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-transparent">
                 <div class="panel-heading text-center">
                     <h1>Inventory</h1>
                 </div>
-                <div class="panel-body table-responsive">
+                <!-- Display this div only if the user has beers on record. -->
+                <div class="panel-body table-responsive" th:if="${hasInventory}">
                     <!-- Inventory Table -->
                     <table id="inventory-table" class="table nowrap data-numbers pre-scrollable"
                         aria-describedby="inventory-table" role="grid" cellspacing="0" width="100%">
@@ -31,18 +32,30 @@
                                 <th>Style</th>
                                 <th>Year</th>
                                 <th>ABV</th>
+                                <th>Count</th>
                             </tr>
                         </thead>
                     </table>
                     <!-- /Inventory Table -->
                 </div>
+                <!-- Display this div only if the user does not have beers on record. -->
+                <div class="panel-body table-responsive" th:if="${!hasInventory}">
+                    <!-- Add first beer panel -->
+                    <div class="col-md-2 col-md-offset-5 text-center">
+                        <p>It looks like you haven't created an inventory yet.</p>
+                        <p>Click <a id="activate-beer-modal" >here</a> to add your first beer.</p>
+                    </div>
+                    <!-- /Add first beer panel -->
+                </div>
             </div>
         </div>
     </div>
-    <!-- /Welcome Page -->
+    <!-- /Inventory Page -->
+
+    <!-- Add Beer Modal -->
+    <div th:replace="fragments/inventoryModals"></div>
+    <!-- /Add Beer Modal -->
 
 </div>
-
 </body>
-
 </html>

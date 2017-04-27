@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout"  class="full">
 
 <!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
 
@@ -14,6 +14,18 @@
 
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Bootstrap Slider CSS -->
+    <link th:href="@{/css/bootstrap-slider.min.css}" rel="stylesheet" />
+
+    <!-- Datatables CSS -->
+    <link th:href="@{/css/datatables.bootstrap.css}" rel="stylesheet" />
+
+    <!-- Datatables Buttons CSS -->
+    <link th:href="@{/css/buttons.bootstrap.css}" rel="stylesheet" />
+
+    <!-- Datatables Select CSS -->
+    <link th:href="@{/css/select.dataTables.min.css}" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link th:href="@{/css/application.css}" rel="stylesheet" />
@@ -31,8 +43,19 @@
     <!-- Bootstrap Core JavaScript -->
     <script th:src="@{/js/bootstrap.min.js}"></script>
 
-    <!-- SmoothScroll -->
-    <script th:src="@{/js/smoothscroll.js}"></script>
+    <!-- Bootstrap Slider JavaScript -->
+    <script th:src="@{/js/bootstrap-slider.min.js}"></script>
+
+    <!-- Datatables Javascript -->
+    <script th:src="@{/js/jquery.datatables.js}"></script>
+    <script th:src="@{/js/datatables.bootstrap.js}"></script>
+
+    <!-- Datatables Buttons Javascript -->
+    <script th:src="@{/js/datatables.buttons.min.js}"></script>
+    <script th:src="@{/js/buttons.bootstrap.js}"></script>
+
+    <!-- Datatables Select Javascript -->
+    <script th:src="@{/js/dataTables.select.min.js}"></script>
 
     <!-- Application Javascript -->
     <script th:src="@{/js/application.js}"></script>
@@ -41,7 +64,7 @@
 
 </head>
 
-<body data-spy="scroll" data-offset="0" data-target="#theMenu" class="full">
+<body data-spy="scroll" data-offset="0" data-target="#theMenu">
 
     <!-- Menu -->
     <nav th:replace="fragments/menu"></nav>

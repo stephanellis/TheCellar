@@ -2,10 +2,13 @@ package com.ronbreier.controllers;
 
 import com.ronbreier.annotations.ActiveUser;
 import com.ronbreier.entities.Beer;
+import com.ronbreier.forms.AddBeerForm;
 import com.ronbreier.repositories.BeerRepository;
+import com.ronbreier.repositories.UserBeerLinkRepository;
 import com.ronbreier.security.CustomUserDetails;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,20 +20,20 @@ import java.util.List;
  */
 
 @Controller
+@PreAuthorize("hasAnyRole('USER')")
 @RequestMapping("/inventory")
 public class InventoryController {
 
     private static final Logger LOGGER = Logger.getLogger(InventoryController.class);
 
     @Autowired
-    private BeerRepository beerRepository;
+    private UserBeerLinkRepository userBeerLinkRepository;
 
     @GetMapping
     public String getInventoryPage(@ActiveUser CustomUserDetails userDetails, Model model){
         LOGGER.info("Navigating to the Inventory Page for " + userDetails.getUsername());
-        List<Beer> inventory = beerRepository.findBeersByUsers(userDetails.getUser());
-        LOGGER.info(inventory);
-        model.addAttribute("inventory", inventory);
+        model.addAttribute("hasInventory", !userBeerLinkRepository.findByUserId(userDetails.getUserId()).isEmpty());
+        model.addAttribute("addBeerForm", new AddBeerForm());
         return "pages/user/inventory";
     }
 

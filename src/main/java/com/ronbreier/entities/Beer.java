@@ -1,7 +1,12 @@
 package com.ronbreier.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ronbreier.forms.AddBeerForm;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,34 +21,44 @@ public class Beer implements Serializable, Comparable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "beer_id", nullable=false)
+    @JsonProperty("beerId")
     private Long beerId;
 
     @Column(name = "beer_api_ref")
+    @JsonProperty("beerApiRef")
     private String beerApiRef;
 
     @Column(name = "abv")
+    @JsonProperty("abv")
     private Double abv;
 
     @Column(name = "beer_name", nullable=false)
+    @JsonProperty("name")
     private String name;
 
     @Column(name = "brewer", nullable=false)
+    @JsonProperty("brewer")
     private String brewer;
 
     @Column(name = "style")
+    @JsonProperty("style")
     private String style;
 
     @Column(name = "description")
+    @JsonProperty("description")
     private String description;
 
     @Column(name = "glassware")
+    @JsonProperty("glassware")
     private String glassware;
 
     @Column(name = "beer_year")
+    @JsonProperty("year")
     private String year;
 
-    @ManyToMany(mappedBy="beerList", fetch=FetchType.LAZY)
-    public List<User> users;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "beer")
+    private List<UserBeerLink> userBeerLinks = new ArrayList<>();
 
     public String getYear() {
         return year;
@@ -53,12 +68,12 @@ public class Beer implements Serializable, Comparable {
         this.year = year;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserBeerLink> getUserBeerLinks() {
+        return userBeerLinks;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserBeerLinks(List<UserBeerLink> userBeerLinks) {
+        this.userBeerLinks = userBeerLinks;
     }
 
     public Long getBeerId() {
@@ -123,6 +138,17 @@ public class Beer implements Serializable, Comparable {
 
     public void setGlassware(String glassware) {
         this.glassware = glassware;
+    }
+
+    public Beer(){
+        // Zero Arg Constructor to satisfy JPA
+    }
+
+    public Beer(AddBeerForm form){
+        this.brewer = form.getBrewer();
+        this.name = form.getBeerName();
+        this.abv = form.getAbv();
+        this.style = form.getStyle();
     }
 
     @Override
