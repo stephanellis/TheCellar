@@ -33,9 +33,9 @@ public class DeleteExpiredRegistrationTokenJobConfig {
     @Autowired
     private DataSource dataSource;
 
-    @Bean
-    public Job DeleteExpiredRegistrationTokenJob(){
-        return jobs.get("DeleteExpiredRegistrationTokenJob")
+    @Bean(name="deleteExpiredRegistrationTokenJob")
+    public Job deleteExpiredRegistrationTokenJob(){
+        return jobs.get("deleteExpiredRegistrationTokenJob")
                 .incrementer(new RunIdIncrementer())
                 .start(deleteExpiredRegTokensStep())
                 .build();
