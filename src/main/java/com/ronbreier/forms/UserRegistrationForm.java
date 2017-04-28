@@ -3,6 +3,7 @@ package com.ronbreier.forms;
 import com.ronbreier.annotations.FieldMatch;
 import com.ronbreier.annotations.ValidEmail;
 import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

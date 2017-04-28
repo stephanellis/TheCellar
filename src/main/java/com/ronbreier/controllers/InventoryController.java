@@ -1,9 +1,7 @@
 package com.ronbreier.controllers;
 
 import com.ronbreier.annotations.ActiveUser;
-import com.ronbreier.entities.Beer;
 import com.ronbreier.forms.AddBeerForm;
-import com.ronbreier.repositories.BeerRepository;
 import com.ronbreier.repositories.UserBeerLinkRepository;
 import com.ronbreier.security.CustomUserDetails;
 import org.apache.log4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import java.util.List;
 
 /**
  * Created by Ron Breier on 4/13/2017.

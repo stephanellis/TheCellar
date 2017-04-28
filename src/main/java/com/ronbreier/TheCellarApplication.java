@@ -19,7 +19,7 @@ public class TheCellarApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(StorageService storageService){
+	CommandLineRunner init(StorageService storageService) {
 		return (args) -> {
 			storageService.init();
 		};

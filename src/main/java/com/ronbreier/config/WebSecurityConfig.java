@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .headers()
                 .frameOptions().disable()
+                .cacheControl().disable()
             .and()
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**","/fonts/**","/images/**", "/", "/register", "/verifyemail/**")
