@@ -16,6 +16,7 @@ import java.util.Date;
 
 /**
  * Created by Ron Breier on 4/28/2017.
+ * Class Schedules Jobs
  */
 
 @Component
@@ -42,7 +43,7 @@ public class JobConfig {
                             .addDate("date", new Date())
                             .toJobParameters();
             JobExecution execution = jobLauncher.run(deleteExpiredRegistrationTokenJob, jobParameters);
-            LOGGER.info("Job Exit Status; " + execution.getStatus());
+            LOGGER.info("Job Exit Status: " + execution.getStatus());
         } catch (Exception e) {
             LOGGER.error("There was an error running the job ", e);
         }
