@@ -5,16 +5,19 @@ spring:
     url: ${CELLAR_CON_STRING_DEV}
     username: ${CELLAR_USER_DEV}
     password: ${CELLAR_PASS_DEV}
+
   jpa:
     properties:
       hibernate:
         ddl: none
         show_sql: true
         format_sql: true
+
   mail:
     host: localhost
     port: 25
     doNotReply: do-not-reply@thecellar.com
+
 
   thymeleaf:
     check-template-location: true
@@ -30,20 +33,26 @@ spring:
   paths:
     storagelocation: c:\
 
+  batch:
+    job:
+      enabled: false
 ---
-# Profile for production
+# Profile for test environment
 spring:
   profiles: test
+
   datasource:
     url: ${CELLAR_CON_STRING_DEV}
     username: ${CELLAR_USER_DEV}
     password: ${CELLAR_PASS_DEV}
+
   jpa:
     properties:
       hibernate:
         ddl: none
         show_sql: true
         format_sql: true
+
   mail:
     host: ${CELLAR_MAIL_HOST_TEST}
     doNotReply: ${CELLAR_MAIL_USER_TEST}
@@ -77,5 +86,9 @@ spring:
 
   paths:
     storagelocation: c:\
+
+  batch:
+    job:
+      enabled: false
 ---
 # Add more profiles below

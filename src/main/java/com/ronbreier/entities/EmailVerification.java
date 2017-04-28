@@ -1,7 +1,5 @@
 package com.ronbreier.entities;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
