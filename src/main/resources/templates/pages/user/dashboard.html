@@ -21,8 +21,15 @@
                     <h1>Dashboard</h1>
                 </div>
                 <div class="panel-body">
-                    <div class="col-md-2 col-md-offset-5">
-                        <p>Widgets to be added later.</p>
+                    <div class="row" th:if="${session.resetPassword}">
+                        <div class="col-md-2 col-md-offset-5">
+                            <p>You must reset your password.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-5">
+                            <p>Widgets to be added later.</p>
+                        </div>
                     </div>
                 </div>
             </div>

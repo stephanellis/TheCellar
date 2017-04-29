@@ -14,7 +14,7 @@
 <div layout:fragment="content">
 
     <!-- Login Form-->
-    <div class="col-md-2 col-md-offset-5" id="login-form">
+    <div class="col-md-2 col-md-offset-5 panel panel-transparent" id="login-form">
         <form class="form-sign-in" th:action="@{/login}" method="post">
             <h2 class="form-sign-in-heading">Please login</h2>
             <p th:if="${param.error}" class="form-error">Something went wrong during your login.</p>

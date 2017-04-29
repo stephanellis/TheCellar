@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<nav class="menu" id="theMenu">
+<nav class="menu" id="theMenu" th:if="${!session.resetPassword}">
     <div class="menu-wrap">
         <h1 class="logo"><a>The Cellar</a></h1>
         <i class="icon-remove menu-close"></i>

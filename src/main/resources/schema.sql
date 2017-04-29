@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     phone_number VARCHAR(15) NOT NULL,
     enabled TINYINT NOT NULL DEFAULT 1,
     login_count INTEGER NOT NULL DEFAULT 0,
+    password_reset TINYINT,
     PRIMARY KEY (user_id),
     UNIQUE (username)
 );

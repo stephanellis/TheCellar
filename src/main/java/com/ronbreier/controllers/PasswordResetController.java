@@ -5,6 +5,7 @@ import com.ronbreier.entities.User;
 import com.ronbreier.forms.ResetPasswordForm;
 import com.ronbreier.repositories.UserRepository;
 import com.ronbreier.services.EmailService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,6 +63,7 @@ public class PasswordResetController {
 
     private User resetPassword(User user){
         user.setPassword(passwordGenerator());
+        user.setPasswordReset(true);
         emailService.sendPasswordResetEmail(user);
         userRepository.save(user);
         return user;

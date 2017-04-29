@@ -60,7 +60,7 @@ public class EmailService {
         };
         try {
             mailSender.send(messagePreparator);
-            LOGGER.info("Sent Registration Email");
+            LOGGER.info("Sent Password Reset Email");
         } catch (MailException e) {
             LOGGER.error("Something went wrong sending the password reset email",e);
         }
