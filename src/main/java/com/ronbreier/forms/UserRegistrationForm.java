@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  */
 
 @FieldMatch.List({
-    @FieldMatch(first = "password", second = "passwordAgain", message = "the password must be entered twice")
+    @FieldMatch(first = "password", second = "passwordAgain", message = "The password must be entered twice")
 })
 public class UserRegistrationForm {
 

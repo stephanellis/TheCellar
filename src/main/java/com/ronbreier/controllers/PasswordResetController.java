@@ -1,11 +1,12 @@
 package com.ronbreier.controllers;
 
-import com.ronbreier.entities.EmailVerification;
+import com.ronbreier.annotations.ActiveUser;
 import com.ronbreier.entities.User;
+import com.ronbreier.forms.ChoosePasswordForm;
 import com.ronbreier.forms.ResetPasswordForm;
 import com.ronbreier.repositories.UserRepository;
+import com.ronbreier.security.CustomUserDetails;
 import com.ronbreier.services.EmailService;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Random;
 
@@ -58,6 +61,38 @@ public class PasswordResetController {
                 resetPassword(userToReset);
             }
             return "pages/registration/passwordResetSuccess";
+        }
+    }
+
+    @GetMapping("/setnewpassword")
+    public String chooseNewPasswordForm(Model model){
+        LOGGER.info("Navigating to the Choose Password Form");
+        model.addAttribute("choosePasswordForm", new ChoosePasswordForm());
+        return "pages/registration/choosePassword";
+    }
+
+    @PostMapping("/setnewpassword")
+    public String submitChooseNewPasswordForm(@ModelAttribute("choosePasswordForm") @Valid ChoosePasswordForm choosePasswordForm,
+                                          @ActiveUser CustomUserDetails userDetails, HttpServletRequest request,
+                                          BindingResult result, Errors errors, Model model){
+        if(result.hasErrors()){
+            LOGGER.info("There was an error on the choose new password form");
+            errors.getAllErrors().stream().forEach(e -> LOGGER.info(e.toString()));
+            return "pages/registration/choosePassword";
+        }else {
+            LOGGER.info("Choose new Password form submitted successfully");
+            userDetails.getUser().setPasswordReset(false);
+            userDetails.getUser().setPassword(choosePasswordForm.getPassword());
+            model.addAttribute("name", userDetails.getFullName());
+            userRepository.save(userDetails.getUser());
+            LOGGER.info("Saved new password for " + userDetails.getUser());
+            try {
+                request.logout();
+            } catch (ServletException e) {
+                LOGGER.error("Therre was an error logging out the user ", e);
+            }
+            LOGGER.info("The User was logged out");
+            return "pages/registration/choosePasswordSuccess";
         }
     }
 
