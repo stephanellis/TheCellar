@@ -56,6 +56,18 @@ public class User implements Serializable, Comparable{
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserBeerLink> userBeerLinks = new ArrayList<>();
 
+    @JsonIgnore
+    @Column(name="password_reset")
+    private boolean passwordReset;
+
+    public boolean isPasswordReset() {
+        return passwordReset;
+    }
+
+    public void setPasswordReset(boolean passwordReset) {
+        this.passwordReset = passwordReset;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -152,6 +164,7 @@ public class User implements Serializable, Comparable{
         this.password = userRegistrationForm.getPassword();
         this.setLoginCount(0);
         this.setEnabled(0);
+        this.passwordReset = false;
     }
 
     public User(User user){
@@ -164,6 +177,7 @@ public class User implements Serializable, Comparable{
         this.phoneNumber = user.phoneNumber;
         this.loginCount = user.loginCount;
         this.userBeerLinks = user.userBeerLinks;
+        this.passwordReset = user.passwordReset;
     }
 
     @Override

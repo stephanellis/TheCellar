@@ -13,7 +13,7 @@
 
 <div layout:fragment="content">
 
-    <!-- Welcome Page -->
+    <!-- Dashboard Page -->
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-transparent">
@@ -21,14 +21,22 @@
                     <h1>Dashboard</h1>
                 </div>
                 <div class="panel-body">
-                    <div class="col-md-2 col-md-offset-5">
-                        <p>Widgets to be added later.</p>
+                    <div class="row" th:if="${session.resetPassword}">
+                        <div class="col-md-2 col-md-offset-5">
+                            <p>You have reset your password.</p>
+                            <p>You must click <a th:href="@{/passwordreset/setnewpassword}">here</a> to set a new password.</p>
+                        </div>
+                    </div>
+                    <div class="row" th:if="${!session.resetPassword}">
+                        <div class="col-md-2 col-md-offset-5">
+                            <p>Widgets to be added later.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /Welcome Page -->
+    <!-- /Dashboard Page -->
 
 </div>
 
