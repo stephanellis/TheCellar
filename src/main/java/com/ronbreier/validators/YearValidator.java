@@ -1,8 +1,6 @@
 package com.ronbreier.validators;
 
-import com.ronbreier.annotations.ValidPhoneNumber;
 import com.ronbreier.annotations.ValidYear;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;
@@ -15,7 +13,7 @@ public class YearValidator implements ConstraintValidator<ValidYear, String> {
 
     private Pattern pattern;
     private Matcher matcher;
-    private static final String YEAR_PATTERN = "/^[0-9]{4}$/";
+    private static final String YEAR_PATTERN = "^[0-9]{4}$";
 
     @Override
     public void initialize(ValidYear constraintAnnotation) {

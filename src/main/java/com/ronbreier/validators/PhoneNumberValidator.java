@@ -16,7 +16,7 @@ public class PhoneNumberValidator implements ConstraintValidator<ValidPhoneNumbe
 
     private Pattern pattern;
     private Matcher matcher;
-    private static final String PHONE_NUMBER_PATTERN = "/^[0-9]{10}$/";
+    private static final String PHONE_NUMBER_PATTERN = "^[0-9]{10}$";
 
     @Override
     public void initialize(ValidPhoneNumber constraintAnnotation) {
