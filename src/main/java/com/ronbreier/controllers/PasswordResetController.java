@@ -9,6 +9,7 @@ import com.ronbreier.security.CustomUserDetails;
 import com.ronbreier.services.EmailService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -73,8 +74,8 @@ public class PasswordResetController {
 
     @PostMapping("/setnewpassword")
     public String submitChooseNewPasswordForm(@ModelAttribute("choosePasswordForm") @Valid ChoosePasswordForm choosePasswordForm,
-                                          @ActiveUser CustomUserDetails userDetails, HttpServletRequest request,
-                                          BindingResult result, Errors errors, Model model){
+                                          BindingResult result, Errors errors, @ActiveUser CustomUserDetails userDetails,
+                                          Model model){
         if(result.hasErrors()){
             LOGGER.info("There was an error on the choose new password form");
             errors.getAllErrors().stream().forEach(e -> LOGGER.info(e.toString()));
@@ -86,11 +87,7 @@ public class PasswordResetController {
             model.addAttribute("name", userDetails.getFullName());
             userRepository.save(userDetails.getUser());
             LOGGER.info("Saved new password for " + userDetails.getUser());
-            try {
-                request.logout();
-            } catch (ServletException e) {
-                LOGGER.error("Therre was an error logging out the user ", e);
-            }
+            SecurityContextHolder.clearContext();
             LOGGER.info("The User was logged out");
             return "pages/registration/choosePasswordSuccess";
         }
