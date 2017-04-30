@@ -51,7 +51,7 @@ public class Beer implements Serializable, Comparable {
     @JsonProperty("glassware")
     private String glassware;
 
-    @Column(name = "beer_year")
+    @Column(name = "beer_year", nullable=false)
     @JsonProperty("year")
     private String year;
 
@@ -148,6 +148,7 @@ public class Beer implements Serializable, Comparable {
         this.name = form.getBeerName();
         this.abv = form.getAbv();
         this.style = form.getStyle();
+        this.year = form.getYear();
     }
 
     @Override

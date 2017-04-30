@@ -70,6 +70,7 @@ $(function(){
                             $('#beerName-edit').val(data.beer.name);
                             $('#style-edit').val(data.beer.style);
                             $('#count-edit').val(data.count);
+                            $('#year-edit').val(data.beer.year);
                             $('#abv-edit').slider('setValue',data.beer.abv);
                         }
                     });
@@ -154,7 +155,8 @@ $(function(){
                 style: $('#style').val(),
                 beerName: $('#beerName').val(),
                 abv: $('#abv').val(),
-                count: $('#count').val()
+                count: $('#count').val(),
+                year: $('#year').val()
             },
             success: function(){
                 $('#add-beer-modal').modal('hide');
@@ -199,7 +201,8 @@ $(function(){
                 style: $('#style-edit').val(),
                 beerName: $('#beerName-edit').val(),
                 abv: $('#abv-edit').val(),
-                count: $('#count-edit').val()
+                count: $('#count-edit').val(),
+                year: $('#year-edit').val()
             },
             success: function(){
                 $('#edit-beer-modal').modal('hide');

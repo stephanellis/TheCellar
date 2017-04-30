@@ -30,6 +30,11 @@
                                     <input type="text" class="form-control" id="beerName" th:field="*{beerName}" />
                                 </div>
                                 <div class="form-group">
+                                    <p class="form-error pull-right" th:each="error: ${#fields.errors('year')}" th:text="${' ' + error}">Validation Error</p>
+                                    <label for="year">Year</label>
+                                    <input type="text" class="form-control" id="year" th:field="*{year}" />
+                                </div>
+                                <div class="form-group">
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('style')}" th:text="${' ' + error}">Validation Error</p>
                                     <label for="style">Style</label>
                                     <input type="text" class="form-control" id="style" th:field="*{style}" />
@@ -121,6 +126,11 @@
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('beerName')}" th:text="${' ' + error}">Validation Error</p>
                                     <label for="beerName-edit">Beer Name</label>
                                     <input type="text" class="form-control" id="beerName-edit" th:field="*{beerName}" />
+                                </div>
+                                <div class="form-group">
+                                    <p class="form-error pull-right" th:each="error: ${#fields.errors('year')}" th:text="${' ' + error}">Validation Error</p>
+                                    <label for="year-edit">Year</label>
+                                    <input type="text" class="form-control" id="year-edit" th:field="*{year}" />
                                 </div>
                                 <div class="form-group">
                                     <p class="form-error pull-right" th:each="error: ${#fields.errors('style')}" th:text="${' ' + error}">Validation Error</p>

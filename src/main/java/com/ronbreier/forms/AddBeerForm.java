@@ -36,6 +36,19 @@ public class AddBeerForm {
     @Max(100000)
     private Long count;
 
+    @NotNull
+    @NotEmpty
+    @Size(min=4, max=4)
+    private String year;
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
     public Long getCount() {
         return count;
     }
@@ -82,6 +95,7 @@ public class AddBeerForm {
                 "brewer='" + brewer + '\'' +
                 ", style='" + style + '\'' +
                 ", beerName='" + beerName + '\'' +
+                ", year=" + year +
                 ", abv=" + abv +
                 '}';
     }
