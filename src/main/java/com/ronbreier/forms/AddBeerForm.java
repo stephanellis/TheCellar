@@ -1,5 +1,6 @@
 package com.ronbreier.forms;
 
+import com.ronbreier.annotations.ValidYear;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Max;
@@ -36,9 +37,7 @@ public class AddBeerForm {
     @Max(100000)
     private Long count;
 
-    @NotNull
-    @NotEmpty
-    @Size(min=4, max=4)
+    @ValidYear
     private String year;
 
     public String getYear() {

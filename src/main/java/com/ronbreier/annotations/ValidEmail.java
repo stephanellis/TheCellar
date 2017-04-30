@@ -12,7 +12,8 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by ron.breier on 4/10/2017.
+ * Created by Ron Breier on 4/10/2017.
+ * Annotation to validate an email address
  */
 
 @Target({TYPE, FIELD, ANNOTATION_TYPE})

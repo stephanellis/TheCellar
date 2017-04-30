@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(100) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    phone_number VARCHAR(15) NOT NULL,
+    phone_number VARCHAR(10) NOT NULL,
     enabled TINYINT NOT NULL DEFAULT 1,
     login_count INTEGER NOT NULL DEFAULT 0,
     password_reset TINYINT,
