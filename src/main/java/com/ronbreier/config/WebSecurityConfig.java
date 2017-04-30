@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cacheControl().disable()
             .and()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**","/fonts/**","/images/**", "/", "/register", "/verifyemail/**")
+                .antMatchers("/css/**", "/js/**","/fonts/**","/images/**", "/", "/register", "/verifyemail/**", "/passwordreset")
                 .permitAll()
             .and()
                 .authorizeRequests()

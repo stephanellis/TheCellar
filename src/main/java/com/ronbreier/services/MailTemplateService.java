@@ -42,4 +42,13 @@ public class MailTemplateService {
         return templateEngine.process("emails/completeRegistration", context);
     }
 
+    public String buildEmailResetEmail(User user) {
+        LOGGER.info("Building Password Reset Email");
+        Context context = new Context();
+        context.setVariable("name", user.getFullName());
+        context.setVariable("newPassword", user.getPassword());
+        context.setVariable("urlToLoginScreen", baseUrl + "/login");
+        return templateEngine.process("emails/passwordReset", context);
+    }
+
 }

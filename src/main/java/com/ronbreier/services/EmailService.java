@@ -49,4 +49,21 @@ public class EmailService {
         }
     }
 
+    public void sendPasswordResetEmail(User user) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setFrom(doNotReply);
+            messageHelper.setTo(user.getUsername());
+            messageHelper.setSubject("Your Password Has Been Reset");
+            String content = mailTemplateService.buildEmailResetEmail(user);
+            messageHelper.setText(content, true);
+        };
+        try {
+            mailSender.send(messagePreparator);
+            LOGGER.info("Sent Password Reset Email");
+        } catch (MailException e) {
+            LOGGER.error("Something went wrong sending the password reset email",e);
+        }
+    }
+
 }
