@@ -28,16 +28,24 @@ $(function(){
         columns: [
             {data: "beer.brewer",
                  render: function(data, type, full, meta){
-                    return data + '<span class="hidden-pk">'+ full.user_beer_link_id + '</span>'
+                    return toTitleCase(data) + '<span class="hidden-pk">'+ full.user_beer_link_id + '</span>'
                  }
             },
-            {data: "beer.name"},
-            {data: "beer.style"},
+            {data: "beer.name",
+                render: function(data, type, full, meta){
+                    return toTitleCase(data)
+                }
+            },
+            {data: "beer.style",
+                render: function(data, type, full, meta){
+                   return toTitleCase(data)
+                }
+            },
             {data: "beer.year"},
             {data: "beer.abv",
                 render: function(data, type, full, meta){
                     return data + '%'
-                 }
+                }
             },
             {data: "count"}
         ],
@@ -46,7 +54,6 @@ $(function(){
                 text: "Add Beer",
                 action: function (e, dt, node, config){
                     $('#add-beer-modal').modal('show');
-                    $('#abv').slider('setValue',0);
                 }
             },
             {
@@ -138,6 +145,7 @@ $(function(){
 
     $('#add-beer-modal').on('shown.bs.modal', function(){
         $('#brewer').focus();
+        $('#abv').slider('setValue',6);
     });
 
     // adds beer name to successful addition modal
@@ -231,5 +239,10 @@ $(function(){
     $('#edit-beer-modal').on('shown.bs.modal', function(){
         $('#brewer-edit').focus();
     });
+
+    function toTitleCase(str)
+    {
+        return str.toLowerCase().replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
 
 })
