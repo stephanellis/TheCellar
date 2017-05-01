@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ronbreier.forms.UserRegistrationForm;
 import org.apache.commons.lang.WordUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -156,12 +158,12 @@ public class User implements Serializable, Comparable{
         // Zero Argument Constructor to satisfy JPA
     }
 
-    public User(UserRegistrationForm userRegistrationForm){
+    public User(UserRegistrationForm userRegistrationForm, PasswordEncoder passwordEncoder){
         this.username = userRegistrationForm.getEmail();
         this.firstName = userRegistrationForm.getFirstName().toUpperCase();
         this.lastName = userRegistrationForm.getLastName().toUpperCase();
         this.phoneNumber = userRegistrationForm.getPhoneNumber();
-        this.password = userRegistrationForm.getPassword();
+        this.password = passwordEncoder.encode(userRegistrationForm.getPassword());
         this.setLoginCount(0);
         this.setEnabled(0);
         this.passwordReset = false;

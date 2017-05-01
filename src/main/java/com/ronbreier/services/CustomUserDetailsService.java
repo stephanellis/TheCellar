@@ -1,6 +1,10 @@
 package com.ronbreier.services;
 
 import com.ronbreier.entities.User;
+import com.ronbreier.entities.UserRole;
+import com.ronbreier.forms.ChoosePasswordForm;
+import com.ronbreier.forms.ResetPasswordForm;
+import com.ronbreier.forms.UserRegistrationForm;
 import com.ronbreier.repositories.UserRepository;
 import com.ronbreier.repositories.UserRolesRepository;
 import com.ronbreier.security.CustomUserDetails;
@@ -9,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Ron Breier on 4/7/2017.
@@ -27,6 +33,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     private final UserRolesRepository userRolesRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailVerificationService emailVerificationService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     public CustomUserDetailsService(UserRepository userRepository, UserRolesRepository userRolesRepository){
@@ -54,6 +69,74 @@ public class CustomUserDetailsService implements UserDetailsService {
             List<String> userRoles = userRolesRepository.findRoleByUsername(username);
             return new CustomUserDetails(user, userRoles);
         }
+    }
+
+    public User registerNewUserAccount(UserRegistrationForm userRegistrationForm)throws Exception{
+        if(usernameExist(userRegistrationForm.getEmail())){
+            throw new Exception("There is an account with the email: " +
+                    userRegistrationForm.getEmail());
+        }
+        User newUser = new User(userRegistrationForm, passwordEncoder);
+        // save user then get it back back from DB to get the ID
+        userRepository.save(newUser);
+        newUser = new User(userRepository.findByUsername(userRegistrationForm.getEmail()));
+        // Create default role for new User Object
+        UserRole newRole = new UserRole(newUser);
+        userRolesRepository.save(newRole);
+        // create unique api token to verify email
+        emailVerificationService.generateVerificationUrl(newUser);
+        // Send confirmation email to new user
+        emailService.sendRegistrationEmail(newUser);
+        return newUser;
+    }
+
+    private boolean usernameExist(String username){
+        LOGGER.info("Checking to see if " + username + " is in the DB");
+        User user = userRepository.findByUsername(username);
+        if (user != null){
+            LOGGER.info("Username: " + username + " is already in the DB");
+            return true;
+        }
+        LOGGER.info("Username: " + username + " is not in the DB");
+        return false;
+    }
+
+    public User resetPassword(User user){
+        String newPass = passwordGenerator();
+        user.setPassword(passwordEncoder.encode(newPass));
+        user.setPasswordReset(true);
+        emailService.sendPasswordResetEmail(user, newPass);
+        userRepository.save(user);
+        return user;
+    }
+
+    public User changePassword(User user,  ChoosePasswordForm choosePasswordForm){
+        user.setPasswordReset(false);
+        user.setPassword(passwordEncoder.encode(choosePasswordForm.getPassword()));
+        userRepository.save(user);
+        LOGGER.info("Saved new password for " + user);
+        return user;
+    }
+
+    private String passwordGenerator(){
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        char[] specChars = "!@#$".toCharArray();
+        char[] numbChars = "123456789".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        for (int i = 0; i < 2; i++) {
+            char c = specChars[random.nextInt(specChars.length)];
+            sb.append(c);
+        }
+        for (int i = 0; i < 2; i++) {
+            char c = numbChars[random.nextInt(numbChars.length)];
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
 }

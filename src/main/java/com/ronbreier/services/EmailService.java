@@ -1,6 +1,7 @@
 package com.ronbreier.services;
 
 import com.ronbreier.entities.User;
+import com.ronbreier.forms.ResetPasswordForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,13 +50,13 @@ public class EmailService {
         }
     }
 
-    public void sendPasswordResetEmail(User user) {
+    public void sendPasswordResetEmail(User user, String newPass) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom(doNotReply);
             messageHelper.setTo(user.getUsername());
             messageHelper.setSubject("Your Password Has Been Reset");
-            String content = mailTemplateService.buildEmailResetEmail(user);
+            String content = mailTemplateService.buildEmailResetEmail(user, newPass);
             messageHelper.setText(content, true);
         };
         try {
