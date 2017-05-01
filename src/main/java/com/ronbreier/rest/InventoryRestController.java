@@ -56,11 +56,16 @@ public class InventoryRestController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }else {
             Beer newBeer = new Beer(form);
-            beerRepository.save(newBeer);
-            LOGGER.info("Saveed new beer " + newBeer);
             User thisUser = userRepository.findOne(userDetails.getUserId());
+            if (isBeerInDb(newBeer)){
+                newBeer = beerRepository.findByBrewerAndNameAndYear(form.getBrewer(), form.getBeerName(), form.getYear());
+                LOGGER.info("This beer is already in the DB " + newBeer);
+            }else {
+                beerRepository.save(newBeer);
+                LOGGER.info("Saved new beer " + newBeer);
+            }
             LOGGER.info("Linking to user " + thisUser);
-            UserBeerLink ubl = new UserBeerLink(thisUser, newBeer , form.getCount());
+            UserBeerLink ubl = new UserBeerLink(thisUser, newBeer, form.getCount());
             userBeerLinkRepository.save(ubl);
             LOGGER.info("Saved new user beer link " + ubl);
             response.setStatus(HttpServletResponse.SC_CREATED);
@@ -109,4 +114,10 @@ public class InventoryRestController {
         LOGGER.info("Getting invintory item with link " + linkId);
         return userBeerLinkRepository.findOne(linkId);
     }
+
+    private boolean isBeerInDb(Beer beer){
+        return (beerRepository.findByBrewerAndNameAndYear(beer.getBrewer(),beer.getName(), beer.getYear()) != null);
+    }
+
 }
+

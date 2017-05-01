@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Ron Breier on 4/10/2017.
+ * Validates an eamil address format using regex
  */
 
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
