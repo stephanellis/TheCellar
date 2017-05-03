@@ -1,7 +1,6 @@
 package com.ronbreier.services;
 
 import com.ronbreier.entities.User;
-import com.ronbreier.forms.ResetPasswordForm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

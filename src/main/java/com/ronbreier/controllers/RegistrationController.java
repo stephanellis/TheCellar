@@ -1,13 +1,10 @@
 package com.ronbreier.controllers;
 
 import com.ronbreier.entities.User;
-import com.ronbreier.entities.UserRole;
 import com.ronbreier.forms.UserRegistrationForm;
 import com.ronbreier.repositories.UserRepository;
 import com.ronbreier.repositories.UserRolesRepository;
 import com.ronbreier.services.CustomUserDetailsService;
-import com.ronbreier.services.EmailService;
-import com.ronbreier.services.EmailVerificationService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
