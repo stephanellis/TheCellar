@@ -6,6 +6,7 @@ import com.ronbreier.forms.ChoosePasswordForm;
 import com.ronbreier.forms.ResetPasswordForm;
 import com.ronbreier.repositories.UserRepository;
 import com.ronbreier.security.CustomUserDetails;
+import com.ronbreier.services.CustomUserDetailsService;
 import com.ronbreier.services.EmailService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Random;
 
 /**
  * Created by Ron Breier on 4/28/2017.
@@ -34,6 +32,9 @@ import java.util.Random;
 public class PasswordResetController {
 
     private static final Logger LOGGER = Logger.getLogger(PasswordResetController.class);
+
+    @Autowired
+    CustomUserDetailsService userDetailsService;
 
     @Autowired
     private UserRepository userRepository;
@@ -59,7 +60,7 @@ public class PasswordResetController {
             LOGGER.info("Password reset form submitted successfully");
             User userToReset = userRepository.findByUsername(resetPasswordForm.getEmail());
             if(userToReset != null){
-                resetPassword(userToReset);
+                userDetailsService.resetPassword(userToReset);
             }
             return "pages/registration/passwordResetSuccess";
         }
@@ -82,44 +83,12 @@ public class PasswordResetController {
             return "pages/registration/choosePassword";
         }else {
             LOGGER.info("Choose new Password form submitted successfully");
-            userDetails.getUser().setPasswordReset(false);
-            userDetails.getUser().setPassword(choosePasswordForm.getPassword());
+            userDetailsService.changePassword(userDetails.getUser(), choosePasswordForm);
             model.addAttribute("name", userDetails.getFullName());
-            userRepository.save(userDetails.getUser());
-            LOGGER.info("Saved new password for " + userDetails.getUser());
             SecurityContextHolder.clearContext();
             LOGGER.info("The User was logged out");
             return "pages/registration/choosePasswordSuccess";
         }
-    }
-
-    private User resetPassword(User user){
-        user.setPassword(passwordGenerator());
-        user.setPasswordReset(true);
-        emailService.sendPasswordResetEmail(user);
-        userRepository.save(user);
-        return user;
-    }
-
-    private String passwordGenerator(){
-        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        char[] specChars = "!@#$".toCharArray();
-        char[] numbChars = "123456789".toCharArray();
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 4; i++) {
-            char c = chars[random.nextInt(chars.length)];
-            sb.append(c);
-        }
-        for (int i = 0; i < 2; i++) {
-            char c = specChars[random.nextInt(specChars.length)];
-            sb.append(c);
-        }
-        for (int i = 0; i < 2; i++) {
-            char c = numbChars[random.nextInt(numbChars.length)];
-            sb.append(c);
-        }
-        return sb.toString();
     }
 
 }

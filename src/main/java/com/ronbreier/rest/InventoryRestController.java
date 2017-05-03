@@ -5,10 +5,9 @@ import com.ronbreier.entities.Beer;
 import com.ronbreier.entities.User;
 import com.ronbreier.entities.UserBeerLink;
 import com.ronbreier.forms.AddBeerForm;
-import com.ronbreier.repositories.BeerRepository;
-import com.ronbreier.repositories.UserBeerLinkRepository;
-import com.ronbreier.repositories.UserRepository;
 import com.ronbreier.security.CustomUserDetails;
+import com.ronbreier.services.InventoryService;
+import com.ronbreier.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -19,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
- * Created by ron.breier on 4/14/2017.
+ * Created by Ron Breier on 4/14/2017.
+ * Rest Controller for Inventory functionality
  */
 
 @RestController
@@ -29,18 +29,15 @@ public class InventoryRestController {
     private static final Logger LOGGER = Logger.getLogger(InventoryRestController.class);
 
     @Autowired
-    private UserBeerLinkRepository userBeerLinkRepository;
+    private InventoryService inventoryService;
 
     @Autowired
-    private BeerRepository beerRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping
     public DataTablesResponse<UserBeerLink> getInvertoryForUser(@ActiveUser CustomUserDetails userDetails){
         LOGGER.info("Getting inventory for userId " + userDetails.getUserId() );
-        DataTablesResponse<UserBeerLink> inventory = new DataTablesResponse<>(userBeerLinkRepository.findByUserId(userDetails.getUserId()));
+        DataTablesResponse<UserBeerLink> inventory = inventoryService.getInventoryForTable(userDetails.getUserId());
         LOGGER.info("User " + userDetails.getUserId()  + " has " + inventory.getData().size() + " beers.");
         return inventory;
     }
@@ -55,14 +52,7 @@ public class InventoryRestController {
             errors.getAllErrors().stream().forEach(e -> LOGGER.info(e.toString()));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }else {
-            Beer newBeer = new Beer(form);
-            beerRepository.save(newBeer);
-            LOGGER.info("Saveed new beer " + newBeer);
-            User thisUser = userRepository.findOne(userDetails.getUserId());
-            LOGGER.info("Linking to user " + thisUser);
-            UserBeerLink ubl = new UserBeerLink(thisUser, newBeer , form.getCount());
-            userBeerLinkRepository.save(ubl);
-            LOGGER.info("Saved new user beer link " + ubl);
+            inventoryService.saveNewUserBeerLink(userService.getUpToDateUser(userDetails.getUserId()), form);
             response.setStatus(HttpServletResponse.SC_CREATED);
         }
     }
@@ -78,27 +68,23 @@ public class InventoryRestController {
             errors.getAllErrors().stream().forEach(e -> LOGGER.info(e.toString()));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }else {
-            UserBeerLink ublEditing = userBeerLinkRepository.findOne(linkID);
-            ublEditing.editBeer(form);
-            userBeerLinkRepository.save(ublEditing);
-            LOGGER.info("Saved edited user beer link " + ublEditing);
+            inventoryService.saveEditedUserBeerLink(linkID, form);
             response.setStatus(HttpServletResponse.SC_CREATED);
         }
     }
 
     @PostMapping("/delete/item")
     public void deleteInventoryItem(@ActiveUser CustomUserDetails userDetails, HttpServletResponse response,
-                @RequestParam("user_beer_link_id") Long beerLinkToDelete){
+                @RequestParam("user_beer_link_id") Long beerLinkIdToDelete){
         LOGGER.info("Deleting inventory item for user " + userDetails.getUserId() );
-        LOGGER.info("Deleting Beer Link ID " + beerLinkToDelete);
-        UserBeerLink ubl = userBeerLinkRepository.findOne(beerLinkToDelete);
+        LOGGER.info("Deleting Beer Link ID " + beerLinkIdToDelete);
+        UserBeerLink ubl = inventoryService.getUblById(beerLinkIdToDelete);
         if (ubl == null || !ubl.getUser().equals(userDetails.getUser())){
             LOGGER.info("Something went wrong");
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else{
             LOGGER.info("Found User Beer Link " + ubl);
-            userBeerLinkRepository.delete(ubl);
-            LOGGER.info("Deleted User Beer Link " + ubl);
+            inventoryService.deleteUserBeerLink(ubl);
             response.setStatus(HttpServletResponse.SC_OK);
         }
     }
@@ -106,7 +92,8 @@ public class InventoryRestController {
     @GetMapping("/find/item/{link_id}")
     public UserBeerLink getInventoryItem(@ActiveUser CustomUserDetails userDetails,
                  @PathVariable("link_id") Long linkId){
-        LOGGER.info("Getting invintory item with link " + linkId);
-        return userBeerLinkRepository.findOne(linkId);
+        return inventoryService.getUblById(linkId);
     }
+
 }
+

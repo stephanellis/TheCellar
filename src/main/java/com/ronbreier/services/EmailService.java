@@ -49,13 +49,13 @@ public class EmailService {
         }
     }
 
-    public void sendPasswordResetEmail(User user) {
+    public void sendPasswordResetEmail(User user, String newPass) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom(doNotReply);
             messageHelper.setTo(user.getUsername());
             messageHelper.setSubject("Your Password Has Been Reset");
-            String content = mailTemplateService.buildEmailResetEmail(user);
+            String content = mailTemplateService.buildEmailResetEmail(user, newPass);
             messageHelper.setText(content, true);
         };
         try {

@@ -3,14 +3,12 @@ package com.ronbreier.controllers;
 import com.ronbreier.annotations.ActiveUser;
 import com.ronbreier.security.CustomUserDetails;
 import org.apache.log4j.Logger;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**

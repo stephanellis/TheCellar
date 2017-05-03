@@ -41,8 +41,8 @@
                         <div class="form-group">
                             <p class="form-error pull-right" th:each="error: ${#fields.errors('phoneNumber')}" th:text="${' ' + error}">Validation Error</p>
                             <label for="phoneNumber">Phone Number</label>
-                            <input type="tel" class="form-control" aria-describedby="phoneNumberHelp" id="phoneNumber" th:field="*{phoneNumber}" />
-                            <small id="phoneNumberHelp" class="form-text text-muted">Please enter a valid phone number to better facilitate trades.</small>
+                            <input type="text" pattern="[1-9]{1}[0-9]{9}" class="form-control" aria-describedby="phoneNumberHelp" id="phoneNumber" th:field="*{phoneNumber}" />
+                            <small id="phoneNumberHelp" class="form-text text-muted">Please enter a valid ten digit phone number.</small>
                         </div>
                         <div class="form-group">
                             <p class="form-error pull-right" th:each="error: ${#fields.errors('password')}" th:text="${' ' + error}">Validation Error</p>

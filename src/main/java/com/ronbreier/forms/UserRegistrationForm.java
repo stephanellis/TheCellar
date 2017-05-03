@@ -2,6 +2,7 @@ package com.ronbreier.forms;
 
 import com.ronbreier.annotations.FieldMatch;
 import com.ronbreier.annotations.ValidEmail;
+import com.ronbreier.annotations.ValidPhoneNumber;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -43,7 +44,8 @@ public class UserRegistrationForm {
     private String passwordAgain;
 
     @NotNull
-    @NotEmpty@Size(min=7, max=15)
+    @NotEmpty@Size(min=10, max=10)
+    @ValidPhoneNumber
     private String phoneNumber;
 
     public String getEmail() {
