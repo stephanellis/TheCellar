@@ -57,7 +57,7 @@ public class InventoryRestController {
         }else {
             Beer newBeer = new Beer(form);
             User thisUser = userRepository.findOne(userDetails.getUserId());
-            if (isBeerInDb(newBeer)){
+            if (isNewBeerInDb(newBeer)){
                 newBeer = beerRepository.findByBrewerAndNameAndYear(form.getBrewer(), form.getBeerName(), form.getYear());
                 LOGGER.info("This beer is already in the DB " + newBeer);
             }else {
@@ -83,10 +83,33 @@ public class InventoryRestController {
             errors.getAllErrors().stream().forEach(e -> LOGGER.info(e.toString()));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }else {
-            UserBeerLink ublEditing = userBeerLinkRepository.findOne(linkID);
-            ublEditing.editBeer(form);
-            userBeerLinkRepository.save(ublEditing);
-            LOGGER.info("Saved edited user beer link " + ublEditing);
+
+            if (isEditedBeerInDb(userBeerLinkRepository.findOne(linkID).getBeer(),form)) {
+                LOGGER.info("This beer was edited to match a different beer that existed in the db, it will be mapped to the existing record");
+                UserBeerLink ublEditing = userBeerLinkRepository.findOne(linkID);
+                Beer beer = beerRepository.findByBrewerAndNameAndYear(form.getBrewer(),form.getBeerName(),form.getYear());
+                if (doesUserAlreadyOwnBeer(userDetails.getUserId(), beer.getBeerId())){
+                    LOGGER.info("This beer is already owned by the editing User, deleting this existing UBL and editing exiting UBL " + ublEditing);
+                    userBeerLinkRepository.delete(ublEditing);
+                    ublEditing = userBeerLinkRepository.findByUserUserIdAndBeerBeerId(userDetails.getUserId(),beer.getBeerId());
+                    ublEditing.editWithForm(form);
+                    userBeerLinkRepository.save(ublEditing);
+                }else {
+                    LOGGER.info("This beer is not already owned by the User, Linking user to existing beer");
+                    ublEditing.setBeer(beer);
+                    ublEditing.getBeer().setAbv(form.getAbv());
+                    ublEditing.setCount(form.getCount());
+                    userBeerLinkRepository.save(ublEditing);
+                    LOGGER.info("The edited beer was committed to the DB");
+                }
+
+                LOGGER.info("Saved edited user beer link to existing beer record" + ublEditing);
+            }else{
+                UserBeerLink ublEditing = userBeerLinkRepository.findOne(linkID);
+                ublEditing.editBeer(form);
+                userBeerLinkRepository.save(ublEditing);
+                LOGGER.info("Saved edited user beer link " + ublEditing);
+            }
             response.setStatus(HttpServletResponse.SC_CREATED);
         }
     }
@@ -115,8 +138,24 @@ public class InventoryRestController {
         return userBeerLinkRepository.findOne(linkId);
     }
 
-    private boolean isBeerInDb(Beer beer){
-        return (beerRepository.findByBrewerAndNameAndYear(beer.getBrewer(),beer.getName(), beer.getYear()) != null);
+    private boolean isNewBeerInDb(Beer beer){
+        // evaluated new beers from new beer form with no primary key set
+        return (beerRepository.findByBrewerAndNameAndYear(beer.getBrewer(), beer.getName(), beer.getYear()) != null);
+    }
+
+    private boolean isEditedBeerInDb(Beer beer, AddBeerForm form ){
+        // evaluate and edited beer to see if we had edited it into an existing beer
+        Beer testBeer = beerRepository.findByBrewerAndNameAndYear(form.getBrewer(),form.getBeerName(),form.getYear());
+        if(testBeer == null ){
+            return false;
+        }
+        return testBeer.getBeerId() != beer.getBeerId();
+    }
+
+    private boolean doesUserAlreadyOwnBeer(Long userId, Long beerId){
+        // evaluate a user to see if it already owns a beer id in it's inventory
+        User user = userRepository.findOne(userId);
+        return user.getUserBeerLinks().stream().filter( ubl -> ubl.getBeer().getBeerId() == beerId).count() > 0;
     }
 
 }

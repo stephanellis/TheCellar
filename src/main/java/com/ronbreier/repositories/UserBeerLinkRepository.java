@@ -19,4 +19,6 @@ public interface UserBeerLinkRepository extends JpaRepository<UserBeerLink, Long
     @Query("select ubl from UserBeerLink ubl where ubl.user.userId = :userId")
     List<UserBeerLink> findByUserId(@Param("userId")Long userId);
 
+    UserBeerLink findByUserUserIdAndBeerBeerId(@Param("userId")Long userId, @Param("beerId")Long beerId);
+
 }
