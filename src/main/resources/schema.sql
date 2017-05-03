@@ -53,9 +53,7 @@ CREATE TABLE IF NOT EXISTS beers (
     description LONGTEXT,
     glassware VARCHAR(25),
     beer_year VARCHAR(4) NOT NULL,
-    PRIMARY KEY (beer_id),
-    UNIQUE (beer_api_ref),
-    UNIQUE (beer_name,brewer, beer_year)
+    PRIMARY KEY (beer_id)
 );
 
     -- ----------------------------
