@@ -3,7 +3,6 @@ package com.ronbreier.services;
 import com.ronbreier.entities.User;
 import com.ronbreier.entities.UserRole;
 import com.ronbreier.forms.ChoosePasswordForm;
-import com.ronbreier.forms.ResetPasswordForm;
 import com.ronbreier.forms.UserRegistrationForm;
 import com.ronbreier.repositories.UserRepository;
 import com.ronbreier.repositories.UserRolesRepository;

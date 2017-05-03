@@ -82,6 +82,20 @@ public class UserBeerLink implements Serializable {
         this.setCount(form.getCount());
     }
 
+    public void mapToExitingBeer(Beer beer){
+        this.beer = beer;
+    }
+
+    public UserBeerLink editWithForm(AddBeerForm form){
+        this.beer.setBrewer(form.getBrewer().toUpperCase());
+        this.beer.setName(form.getBeerName().toUpperCase());
+        this.beer.setAbv(form.getAbv());
+        this.beer.setStyle(form.getStyle().toUpperCase());
+        this.beer.setYear(form.getYear());
+        this.count = this.count + form.getCount();
+        return this;
+    }
+
     @Override
     public String toString() {
         return "UserBeerLink{" +

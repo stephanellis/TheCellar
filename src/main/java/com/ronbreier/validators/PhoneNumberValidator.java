@@ -1,6 +1,5 @@
 package com.ronbreier.validators;
 
-import com.ronbreier.annotations.ValidEmail;
 import com.ronbreier.annotations.ValidPhoneNumber;
 
 import javax.validation.ConstraintValidator;
