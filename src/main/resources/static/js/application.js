@@ -2,9 +2,9 @@ $(function(){
 
     var firstBeer = false;
     // Menu JS
-    $('#menuToggle, .menu-close').on('click', function(){
+    $('#menuToggle').click(function(){
         $('#menuToggle').toggleClass('active');
-        $('body').toggleClass('body-push-toleft');
+        $('body').toggleClass('body-push-to-left');
         $('#theMenu').toggleClass('menu-open');
     });
 
@@ -12,7 +12,7 @@ $(function(){
     $('#theMenu').on('mouseleave', function(){
         if($('#menuToggle').hasClass('active')){
             $('#menuToggle').toggleClass('active');
-            $('body').toggleClass('body-push-toleft');
+            $('body').toggleClass('body-push-to-left');
             $('#theMenu').toggleClass('menu-open');
         }
     });

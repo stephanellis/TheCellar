@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     enabled TINYINT NOT NULL DEFAULT 1,
     login_count INTEGER NOT NULL DEFAULT 0,
     password_reset TINYINT,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id),
     UNIQUE (username)
 );
