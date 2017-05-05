@@ -269,7 +269,26 @@ $(function(){
     // Populates username model
      $("#edit-user-email-modal").on('show.bs.modal', function(){
          $('#change-user-email').val($('#management-username').text());
+         $('#change-user-email').focus();
      });
+
+    // submit function for edit email form modal.
+    $("#submit-edit-user-email-form").on('click', function(){
+        $.ajax({
+            url: '/rest/account/management/change/email',
+            type: "PUT",
+            data: {
+                email: $('#change-user-email').val()
+            },
+            success: function(data){
+                alert('SUCCESS');
+                // TODO: Implement a success screen to let the user know they were just locked out pending the email verification
+            },
+            error:  function(){
+                console.log('Something went wrong saving the new email');
+            }
+        });
+    });
 
     // Opens Edit Name Modal
     $("#editName").on('click', function(){
@@ -280,6 +299,7 @@ $(function(){
      $("#edit-user-name-modal").on('show.bs.modal', function(){
          $('#change-user-first-name').val($('#editFirstName').val());
          $('#change-user-last-name').val($('#editLastName').val());
+         $('#change-user-first-name').focus();
      });
 
     // Opens Edit phone number Modal
@@ -289,6 +309,7 @@ $(function(){
 
     $("#edit-user-phone-number-modal").on('show.bs.modal', function(){
          $('#change-user-phone-number').val($('#management-phone-number').text());
+         $('#change-user-phone-number').focus();
      });
 
     // function refreshes user management screen

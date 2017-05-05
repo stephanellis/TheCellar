@@ -20,7 +20,7 @@ public class EmailVerificationService {
     private EmailVerificationRepository emailVerificationRepository;
 
     public void generateVerificationUrl(User user){
-        LOGGER.info("Generating an email verification key for new user " + user.getUsername());
+        LOGGER.info("Generating an email verification key for user " + user.getUsername());
         StringBuilder token = new StringBuilder(100);
         EmailVerification emailVerification = new EmailVerification(user);
         emailVerificationRepository.save(emailVerification);

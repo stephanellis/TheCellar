@@ -1,14 +1,17 @@
 package com.ronbreier.rest;
 
 import com.ronbreier.annotations.ActiveUser;
+import com.ronbreier.annotations.ValidEmail;
 import com.ronbreier.entities.User;
 import com.ronbreier.security.CustomUserDetails;
+import com.ronbreier.services.EmailVerificationService;
 import com.ronbreier.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Ron Breier on 5/5/2017.
@@ -24,6 +27,9 @@ public class AccountManagmentRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailVerificationService emailVerificationService;
+
     @GetMapping
     public User getUserDetails(@ActiveUser CustomUserDetails userDetails){
         LOGGER.info("Getting user details for userId " + userDetails.getUserId());
@@ -32,5 +38,17 @@ public class AccountManagmentRestController {
         return user;
     }
 
+    @PutMapping("/change/email")
+    public void saveNewUserEmail(@ActiveUser CustomUserDetails userDetails, @ValidEmail String email){
+        User user = userService.getUpToDateUser(userDetails.getUserId());
+        LOGGER.info("Changing user id " + user.getUserId() + " email from " + user.getUsername() + " to " + email);
+        user.setUsername(email);
+        LOGGER.info("Locking user " + user);
+        user.setEnabled(0);
+        userService.saveUser(user);
+        emailVerificationService.generateVerificationUrl(user);
+        SecurityContextHolder.clearContext();
+        LOGGER.info("The User was logged out");
+    }
 
 }
