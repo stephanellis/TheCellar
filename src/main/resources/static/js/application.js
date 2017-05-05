@@ -3,6 +3,8 @@ $(function(){
 // Class Level Fields
 
     var firstBeer = false;
+    var userFirstName = '';
+    var userLastName = '';
 
 // End Class Level Fields
 
@@ -256,20 +258,55 @@ $(function(){
 
 // Account Management Functionality
 
-    // Opens Edit Name Modal
+    // On load Account Management population
+    if($("#account-management-form").is(":visible")){
+        refreshUserManagementScreen();
+    }
+
+    // Opens Edit username Modal
     $("#editEmail").on('click', function(){
         $("#edit-user-email-modal").modal('show');
     });
+
+    // Populates username model
+     $("#edit-user-email-modal").on('show.bs.modal', function(){
+         $('#change-user-email').val($('#management-username').text());
+     });
 
     // Opens Edit Name Modal
     $("#editName").on('click', function(){
         $("#edit-user-name-modal").modal('show');
     });
 
-    // Opens Edit Name Modal
+    // Populates name model
+     $("#edit-user-name-modal").on('show.bs.modal', function(){
+         $('#change-user-first-name').val(userFirstName);
+         $('#change-user-last-name').val(userLastName);
+     });
+
+    // Opens Edit phone number Modal
     $("#editPhone").on('click', function(){
         $("#edit-user-phone-number-modal").modal('show');
     });
+
+    // function refreshes user management screen
+    function refreshUserManagementScreen(){
+        $.ajax({
+            url: '/rest/account/management',
+            type: "GET",
+            success: function(data){
+                $('#management-username').text(data.username);
+                $('#management-full-name').text(data.fullName);
+                $('#management-phone-number').text(data.formattedPhoneNumber);
+                // stores first and last in title case to class level fields for later recovery in form
+                userFirstName = toTitleCase(data.firstName);
+                userLastName = toTitleCase(data.lastName);
+            },
+            error:  function(){
+                console.log('Something went wrong');
+            }
+        });
+    }
 
 // End Account Management Functionality
 
