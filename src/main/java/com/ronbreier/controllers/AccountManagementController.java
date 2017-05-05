@@ -28,12 +28,9 @@ public class AccountManagementController {
     private UserService userService;
 
     @GetMapping
-    public String enterProject(@ActiveUser CustomUserDetails userDetails, Model model) {
-        User user = userService.getUpToDateUser(userDetails.getUserId());
-        LOGGER.info("Navigating to Account Management Screen for user " +  user);
-        model.addAttribute("user", user);
+    public String enterProject(@ActiveUser CustomUserDetails userDetails) {
+        LOGGER.info("Navigating to Account Management Screen for user " +  userDetails.getUser());
         return "pages/user/management";
     }
-
 
 }

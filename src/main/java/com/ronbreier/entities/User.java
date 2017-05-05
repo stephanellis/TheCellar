@@ -150,6 +150,10 @@ public class User implements Serializable, Comparable{
         return WordUtils.capitalizeFully(getFirstName() + " " + getLastName());
     }
 
+    public String getFormattedPhoneNumber(){
+        return this.phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)","($1)-$2-$3");
+    }
+
     public List<UserBeerLink> getUserBeerLinks() {
         return userBeerLinks;
     }

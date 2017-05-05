@@ -21,12 +21,23 @@
                     <h1>Account Management</h1>
                 </div>
                 <div class="panel-body">
-
+                    <div class="row">
+                        <div id="account-management-form" class="col-md-6 col-md-offset-3 text-center">
+                            <p><b>Click on any of the values below to edit them.</b></p>
+                            <p id="editEmail">Email: <span id="management-username"></span></p>
+                            <p id="editName">Name: <span id="management-full-name"></span></p>
+                            <p id="editPhone">Phone Number: <span id="management-phone-number"></span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /Account Management Page -->
+
+    <!-- Add Beer Modal -->
+    <div th:replace="fragments/accountManagementModals"></div>
+    <!-- /Add Beer Modal -->
 
 </div>
 

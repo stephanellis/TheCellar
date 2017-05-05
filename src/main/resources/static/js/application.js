@@ -1,6 +1,13 @@
 $(function(){
 
+// Class Level Fields
+
     var firstBeer = false;
+
+// End Class Level Fields
+
+// Menu Functionality
+
     // Menu JS
     $('#menuToggle').click(function(){
         $('#menuToggle').toggleClass('active');
@@ -16,6 +23,10 @@ $(function(){
             $('#theMenu').toggleClass('menu-open');
         }
     });
+
+// End Menu Functionality
+
+// Inventory Functionality
 
     // Initializes Inventory Table
     var inventoryTable = $('#inventory-table').DataTable({
@@ -240,9 +251,35 @@ $(function(){
         $('#brewer-edit').focus();
     });
 
+
+// End Inventory Functionality
+
+// Account Management Functionality
+
+    // Opens Edit Name Modal
+    $("#editEmail").on('click', function(){
+        $("#edit-user-email-modal").modal('show');
+    });
+
+    // Opens Edit Name Modal
+    $("#editName").on('click', function(){
+        $("#edit-user-name-modal").modal('show');
+    });
+
+    // Opens Edit Name Modal
+    $("#editPhone").on('click', function(){
+        $("#edit-user-phone-number-modal").modal('show');
+    });
+
+// End Account Management Functionality
+
+// Useful Functions
+
     function toTitleCase(str)
     {
         return str.toLowerCase().replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     }
+
+// End Useful Functions
 
 })
