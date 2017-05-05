@@ -3,8 +3,6 @@ $(function(){
 // Class Level Fields
 
     var firstBeer = false;
-    var userFirstName = '';
-    var userLastName = '';
 
 // End Class Level Fields
 
@@ -280,14 +278,18 @@ $(function(){
 
     // Populates name model
      $("#edit-user-name-modal").on('show.bs.modal', function(){
-         $('#change-user-first-name').val(userFirstName);
-         $('#change-user-last-name').val(userLastName);
+         $('#change-user-first-name').val($('#editFirstName').val());
+         $('#change-user-last-name').val($('#editLastName').val());
      });
 
     // Opens Edit phone number Modal
     $("#editPhone").on('click', function(){
         $("#edit-user-phone-number-modal").modal('show');
     });
+
+    $("#edit-user-phone-number-modal").on('show.bs.modal', function(){
+         $('#change-user-phone-number').val($('#management-phone-number').text());
+     });
 
     // function refreshes user management screen
     function refreshUserManagementScreen(){
@@ -298,9 +300,8 @@ $(function(){
                 $('#management-username').text(data.username);
                 $('#management-full-name').text(data.fullName);
                 $('#management-phone-number').text(data.formattedPhoneNumber);
-                // stores first and last in title case to class level fields for later recovery in form
-                userFirstName = toTitleCase(data.firstName);
-                userLastName = toTitleCase(data.lastName);
+                $('#editFirstName').val(toTitleCase(data.firstName));
+                $('#editLastName').val(toTitleCase(data.lastName));
             },
             error:  function(){
                 console.log('Something went wrong');
