@@ -32,13 +32,14 @@ public class MailTemplateService {
         this.templateEngine = templateEngine;
     }
 
-    public String buildRegistrationEmail(User user) {
+    public String buildRegistrationEmail(User user, Boolean isUserNew) {
         LOGGER.info("Building Registration Email");
         // get url for Email Verification
         EmailVerification emailVerification = emailVerificationRepository.findByUserId(user.getUserId());
         Context context = new Context();
         context.setVariable("name", user.getFullName());
         context.setVariable("urlToVerifyEmail", baseUrl + emailVerification.getVerificationUrl());
+        context.setVariable("isUserNew", isUserNew);
         return templateEngine.process("emails/completeRegistration", context);
     }
 

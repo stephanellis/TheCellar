@@ -4,14 +4,13 @@ import com.ronbreier.annotations.ActiveUser;
 import com.ronbreier.annotations.ValidEmail;
 import com.ronbreier.entities.User;
 import com.ronbreier.security.CustomUserDetails;
+import com.ronbreier.services.EmailService;
 import com.ronbreier.services.EmailVerificationService;
 import com.ronbreier.services.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Ron Breier on 5/5/2017.
@@ -23,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 public class AccountManagmentRestController {
 
     private static final Logger LOGGER = Logger.getLogger(AccountManagmentRestController.class);
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private UserService userService;
@@ -46,7 +48,9 @@ public class AccountManagmentRestController {
         LOGGER.info("Locking user " + user);
         user.setEnabled(0);
         userService.saveUser(user);
-        emailVerificationService.generateVerificationUrl(user);
+        emailVerificationService.generateVerificationUrlExistingUser(user);
+        // Send confirmation email to user
+        emailService.sendRegistrationEmail(user, false);
         SecurityContextHolder.clearContext();
         LOGGER.info("The User was logged out");
     }

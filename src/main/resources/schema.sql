@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS email_verification_tokens (
     user_id INTEGER NOT NULL,
     token VARCHAR(100) NOT NULL,
     date_generated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_user_new TINYINT DEFAULT 1,
     PRIMARY KEY (token_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     UNIQUE (user_id)

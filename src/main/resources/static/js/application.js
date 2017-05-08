@@ -281,11 +281,17 @@ $(function(){
                 email: $('#change-user-email').val()
             },
             success: function(data){
-                alert('SUCCESS');
-                // TODO: Implement a success screen to let the user know they were just locked out pending the email verification
+                $("#edit-user-email-modal").modal('hide');
+                $("#edit-user-email-modal").one('hidden.bs.modal', function(){
+                    $('#edit-user-email-success-modal').modal('show');
+                    $('#edit-user-email-success-modal').one('hidden.bs.modal', function(){
+                        location.reload();
+                    });
+                });
+
             },
             error:  function(){
-                console.log('Something went wrong saving the new email');
+                $('#edit-user-email-error').text('Something went wrong saving the new email');
             }
         });
     });
