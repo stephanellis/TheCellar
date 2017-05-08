@@ -2,6 +2,7 @@ package com.ronbreier.rest;
 
 import com.ronbreier.annotations.ActiveUser;
 import com.ronbreier.annotations.ValidEmail;
+import com.ronbreier.annotations.ValidPhoneNumber;
 import com.ronbreier.entities.User;
 import com.ronbreier.security.CustomUserDetails;
 import com.ronbreier.services.EmailService;
@@ -53,6 +54,23 @@ public class AccountManagmentRestController {
         emailService.sendRegistrationEmail(user, false);
         SecurityContextHolder.clearContext();
         LOGGER.info("The User was logged out");
+    }
+
+    @PutMapping("/change/name")
+    public void saveUserNameChanges(@ActiveUser CustomUserDetails userDetails, String firstName, String lastName){
+        User user = userService.getUpToDateUser(userDetails.getUserId());
+        LOGGER.info("Changing user id " + user.getUserId() + " name from " + user.getFullName() + " to " + firstName + " " + lastName);
+        user.setFirstName(firstName.toUpperCase());
+        user.setLastName(lastName.toUpperCase());
+        userService.saveUser(user);
+    }
+
+    @PutMapping("/change/phonenumber")
+    public void saveUserPhoneNumberChanges(@ActiveUser CustomUserDetails userDetails, @ValidPhoneNumber String phoneNumber){
+        User user = userService.getUpToDateUser(userDetails.getUserId());
+        LOGGER.info("Changing user id " + user.getUsername() + " phone number from " + user.getPhoneNumber() + " to " + phoneNumber);
+        user.setPhoneNumber(phoneNumber);
+        userService.saveUser(user);
     }
 
 }

@@ -272,7 +272,7 @@ $(function(){
          $('#change-user-email').focus();
      });
 
-    // submit function for edit email form modal.
+    // submit function for edit username form modal.
     $("#submit-edit-user-email-form").on('click', function(){
         $.ajax({
             url: '/rest/account/management/change/email',
@@ -308,6 +308,25 @@ $(function(){
          $('#change-user-first-name').focus();
      });
 
+    // submit function for edit username form modal.
+    $("#submit-user-name-form").on('click', function(){
+        $.ajax({
+            url: '/rest/account/management/change/name',
+            type: "PUT",
+            data: {
+                firstName: $('#change-user-first-name').val(),
+                lastName: $('#change-user-last-name').val()
+            },
+            success: function(data){
+                $("#edit-user-name-modal").modal('hide');
+                location.reload();
+            },
+            error:  function(){
+                $('#edit-user-name-error').text('Something went wrong saving your edited name.');
+            }
+        });
+    });
+
     // Opens Edit phone number Modal
     $("#editPhone").on('click', function(){
         $("#edit-user-phone-number-modal").modal('show');
@@ -317,6 +336,24 @@ $(function(){
          $('#change-user-phone-number').val($('#management-phone-number').text());
          $('#change-user-phone-number').focus();
      });
+
+    // submit function for edit phonenumber form modal.
+    $("#submit-user-phone-number-form").on('click', function(){
+        $.ajax({
+            url: '/rest/account/management/change/phonenumber',
+            type: "PUT",
+            data: {
+                phoneNumber: $('#change-user-phone-number').val().replace(/-/g,"").replace(/[{()}]/g,"").replace(/\s/g,'')
+            },
+            success: function(data){
+                $("#edit-user-phone-number-modal").modal('hide');
+                location.reload();
+            },
+            error:  function(){
+                $('#edit-user-phone-number-error').text('Something went wrong saving your edited phone number.');
+            }
+        });
+    });
 
     // function refreshes user management screen
     function refreshUserManagementScreen(){
