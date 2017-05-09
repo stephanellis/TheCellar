@@ -32,13 +32,13 @@ public class EmailService {
     @Value("${spring.mail.doNotReply}")
     private String doNotReply;
 
-    public void sendRegistrationEmail(User user) {
+    public void sendRegistrationEmail(User user, boolean isUserNew) {
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom(doNotReply);
             messageHelper.setTo(user.getUsername());
             messageHelper.setSubject("Complete Your Registration");
-            String content = mailTemplateService.buildRegistrationEmail(user);
+            String content = mailTemplateService.buildRegistrationEmail(user, isUserNew);
             messageHelper.setText(content, true);
         };
         try {

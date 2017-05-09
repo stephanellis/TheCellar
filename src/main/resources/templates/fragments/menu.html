@@ -7,15 +7,15 @@
 
 <nav class="menu" id="theMenu" th:if="${!session.resetPassword}">
     <div class="menu-wrap">
-        <h1 class="logo"><a>The Cellar</a></h1>
-        <i class="icon-remove menu-close"></i>
-        <a th:href="@{/dashboard}" class="smoothScroll">Dashboard</a>
-        <a th:href="@{/inventory}" class="smoothScroll">Inventory</a>
-        <a th:href="@{/logout}" class="smoothScroll">Logout</a>
+        <h1 class="logo">The Cellar</h1>
+        <a th:href="@{/dashboard}" ><i class="glyphicon glyphicon-dashboard"></i>Dashboard</a>
+        <a th:href="@{/inventory}" ><i class="glyphicon glyphicon-grain"></i>Inventory</a>
+        <a th:href="@{/account/management}"><i class="glyphicon glyphicon-user"></i>Manage Account</a>
+        <a th:href="@{/logout}" ><i class="glyphicon glyphicon-log-out"></i>Logout</a>
     </div>
 
     <!-- Menu button -->
-    <div id="menuToggle"><span class="glyphicon glyphicon-menu-hamburger"></span></div>
+    <div><span id="menuToggle" class="glyphicon glyphicon-menu-hamburger"></span></div>
     <!-- /Menu Button -->
 
 </nav>

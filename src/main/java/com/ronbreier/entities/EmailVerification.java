@@ -27,6 +27,17 @@ public class EmailVerification implements Serializable {
     @Column(name="date_generated")
     private Timestamp dateGenerated;
 
+    @Column(name="is_user_new")
+    private Boolean newUser;
+
+    public Boolean getNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(Boolean newUser) {
+        this.newUser = newUser;
+    }
+
     public Long getTokenId() {
         return tokenId;
     }

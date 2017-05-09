@@ -17,11 +17,20 @@ public class DataTablesResponse<T> {
         this.data = data;
     }
 
+    public DataTablesResponse(T data) {
+        this.data.add(data);
+    }
+
     public List<T> getData() {
         return data;
     }
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString(){
+        return data.toString();
     }
 }

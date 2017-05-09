@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  * Created by Ron Breier on 4/30/2017.
  * Validate a 10 digit number
  */
+
 public class PhoneNumberValidator implements ConstraintValidator<ValidPhoneNumber, String> {
 
     private Pattern pattern;

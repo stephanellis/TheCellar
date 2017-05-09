@@ -55,7 +55,7 @@ public class DeleteExpiredRegistrationTokenJobConfig {
     public JdbcCursorItemReader<EmailVerification> deleteExpiredRegTokensReader(){
         JdbcCursorItemReader<EmailVerification> itemReader = new JdbcCursorItemReader<>();
         itemReader.setDataSource(dataSource);
-        itemReader.setSql("SELECT * FROM email_verification_tokens WHERE date_generated < TIMESTAMP(DATE_SUB(NOW(), INTERVAL 48 HOUR)) ");
+        itemReader.setSql("SELECT * FROM email_verification_tokens WHERE date_generated < TIMESTAMP(DATE_SUB(NOW(), INTERVAL 48 HOUR)) AND is_user_new = 1 ");
         itemReader.setRowMapper(new EmailVerificationRowMapper(EmailVerification.class));
         return itemReader;
     }
