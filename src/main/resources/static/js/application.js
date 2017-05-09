@@ -210,7 +210,7 @@ $(function(){
         inventoryTable.button(2).enable(selectedRows>0);
     });
 
-    // Submits Add New Beer Form to API
+    // Submits Edit Beer Form to API
     $('#submit-edit-beer-form').on('click', function(){
         $.ajax({
             url: "/rest/inventory/edit/item/" +  $('#editing-pk').val(),
@@ -275,6 +275,9 @@ $(function(){
 
     // submit function for edit username form modal.
     $("#submit-edit-user-email-form").on('click', function(){
+        var $this = $(this);
+        $this.button('loading');
+        $('.cancel-button').prop('disabled', true);
         $.ajax({
             url: '/rest/account/management/change/email',
             type: "PUT",
@@ -282,6 +285,8 @@ $(function(){
                 email: $('#change-user-email').val()
             },
             success: function(data){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
                 $("#edit-user-email-modal").modal('hide');
                 $("#edit-user-email-modal").one('hidden.bs.modal', function(){
                     $('#edit-user-email-success-modal').modal('show');
@@ -292,6 +297,8 @@ $(function(){
 
             },
             error:  function(e){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
                 $('#edit-user-email-error').text('Something went wrong saving the new email ' + e.responseJSON.message);
             }
         });
@@ -311,6 +318,9 @@ $(function(){
 
     // submit function for edit username form modal.
     $("#submit-user-name-form").on('click', function(){
+    var $this = $(this);
+    $this.button('loading');
+    $('.cancel-button').prop('disabled', true);
         $.ajax({
             url: '/rest/account/management/change/name',
             type: "PUT",
@@ -319,11 +329,15 @@ $(function(){
                 lastName: $('#change-user-last-name').val()
             },
             success: function(data){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+                refreshUserManagementScreen();
                 $("#edit-user-name-modal").modal('hide');
-                location.reload();
             },
             error:  function(){
                 $('#edit-user-name-error').text('Something went wrong saving your edited name.');
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
             }
         });
     });
@@ -340,6 +354,9 @@ $(function(){
 
     // submit function for edit phonenumber form modal.
     $("#submit-user-phone-number-form").on('click', function(){
+        var $this = $(this);
+        $this.button('loading');
+        $('.cancel-button').prop('disabled', true);
         $.ajax({
             url: '/rest/account/management/change/phonenumber',
             type: "PUT",
@@ -347,10 +364,14 @@ $(function(){
                 phoneNumber: $('#change-user-phone-number').val().replace(/-/g,"").replace(/[{()}]/g,"").replace(/\s/g,'')
             },
             success: function(data){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+                refreshUserManagementScreen();
                 $("#edit-user-phone-number-modal").modal('hide');
-                location.reload();
             },
             error:  function(){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
                 $('#edit-user-phone-number-error').text('Something went wrong saving your edited phone number.');
             }
         });
