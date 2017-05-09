@@ -28,4 +28,8 @@ public class UserService {
         LOGGER.info("Saved user " + user);
     }
 
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+
 }

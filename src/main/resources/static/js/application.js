@@ -268,6 +268,7 @@ $(function(){
 
     // Populates username model
      $("#edit-user-email-modal").on('show.bs.modal', function(){
+         $('#edit-user-email-error').text('');
          $('#change-user-email').val($('#management-username').text());
          $('#change-user-email').focus();
      });
@@ -290,8 +291,8 @@ $(function(){
                 });
 
             },
-            error:  function(){
-                $('#edit-user-email-error').text('Something went wrong saving the new email');
+            error:  function(e){
+                $('#edit-user-email-error').text('Something went wrong saving the new email ' + e.responseJSON.message);
             }
         });
     });

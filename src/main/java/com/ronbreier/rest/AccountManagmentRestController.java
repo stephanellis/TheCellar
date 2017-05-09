@@ -42,8 +42,12 @@ public class AccountManagmentRestController {
     }
 
     @PutMapping("/change/email")
-    public void saveNewUserEmail(@ActiveUser CustomUserDetails userDetails, @ValidEmail String email){
+    public void saveNewUserEmail(@ActiveUser CustomUserDetails userDetails, @ValidEmail String email) throws Exception {
         User user = userService.getUpToDateUser(userDetails.getUserId());
+        User mathingUsername = userService.getUserByUsername(email);
+        if(mathingUsername != null && mathingUsername != user){
+            throw new Exception("Username already in use");
+        }
         LOGGER.info("Changing user id " + user.getUserId() + " email from " + user.getUsername() + " to " + email);
         user.setUsername(email);
         LOGGER.info("Locking user " + user);
