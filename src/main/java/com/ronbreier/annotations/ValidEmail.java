@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Annotation to validate an email address
  */
 
-@Target({TYPE, FIELD, ANNOTATION_TYPE})
+@Target({TYPE, FIELD, ANNOTATION_TYPE, PARAMETER})
 @Retention(RUNTIME)
 @Constraint(validatedBy = EmailValidator.class)
 @Documented

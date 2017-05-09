@@ -1,10 +1,17 @@
 $(function(){
 
+// Class Level Fields
+
     var firstBeer = false;
+
+// End Class Level Fields
+
+// Menu Functionality
+
     // Menu JS
-    $('#menuToggle, .menu-close').on('click', function(){
+    $('#menuToggle').click(function(){
         $('#menuToggle').toggleClass('active');
-        $('body').toggleClass('body-push-toleft');
+        $('body').toggleClass('body-push-to-left');
         $('#theMenu').toggleClass('menu-open');
     });
 
@@ -12,10 +19,14 @@ $(function(){
     $('#theMenu').on('mouseleave', function(){
         if($('#menuToggle').hasClass('active')){
             $('#menuToggle').toggleClass('active');
-            $('body').toggleClass('body-push-toleft');
+            $('body').toggleClass('body-push-to-left');
             $('#theMenu').toggleClass('menu-open');
         }
     });
+
+// End Menu Functionality
+
+// Inventory Functionality
 
     // Initializes Inventory Table
     var inventoryTable = $('#inventory-table').DataTable({
@@ -199,7 +210,7 @@ $(function(){
         inventoryTable.button(2).enable(selectedRows>0);
     });
 
-    // Submits Add New Beer Form to API
+    // Submits Edit Beer Form to API
     $('#submit-edit-beer-form').on('click', function(){
         $.ajax({
             url: "/rest/inventory/edit/item/" +  $('#editing-pk').val(),
@@ -240,9 +251,159 @@ $(function(){
         $('#brewer-edit').focus();
     });
 
+
+// End Inventory Functionality
+
+// Account Management Functionality
+
+    // On load Account Management population
+    if($("#account-management-form").is(":visible")){
+        refreshUserManagementScreen();
+    }
+
+    // Opens Edit username Modal
+    $("#editEmail").on('click', function(){
+        $("#edit-user-email-modal").modal('show');
+    });
+
+    // Populates username model
+     $("#edit-user-email-modal").on('show.bs.modal', function(){
+         $('#edit-user-email-error').text('');
+         $('#change-user-email').val($('#management-username').text());
+         $('#change-user-email').focus();
+     });
+
+    // submit function for edit username form modal.
+    $("#submit-edit-user-email-form").on('click', function(){
+        var $this = $(this);
+        $this.button('loading');
+        $('.cancel-button').prop('disabled', true);
+        $.ajax({
+            url: '/rest/account/management/change/email',
+            type: "PUT",
+            data: {
+                email: $('#change-user-email').val()
+            },
+            success: function(data){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+                $("#edit-user-email-modal").modal('hide');
+                $("#edit-user-email-modal").one('hidden.bs.modal', function(){
+                    $('#edit-user-email-success-modal').modal('show');
+                    $('#edit-user-email-success-modal').one('hidden.bs.modal', function(){
+                        location.reload();
+                    });
+                });
+
+            },
+            error:  function(e){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+                $('#edit-user-email-error').text('Something went wrong saving the new email ' + e.responseJSON.message);
+            }
+        });
+    });
+
+    // Opens Edit Name Modal
+    $("#editName").on('click', function(){
+        $("#edit-user-name-modal").modal('show');
+    });
+
+    // Populates name model
+     $("#edit-user-name-modal").on('show.bs.modal', function(){
+         $('#change-user-first-name').val($('#editFirstName').val());
+         $('#change-user-last-name').val($('#editLastName').val());
+         $('#change-user-first-name').focus();
+     });
+
+    // submit function for edit username form modal.
+    $("#submit-user-name-form").on('click', function(){
+    var $this = $(this);
+    $this.button('loading');
+    $('.cancel-button').prop('disabled', true);
+        $.ajax({
+            url: '/rest/account/management/change/name',
+            type: "PUT",
+            data: {
+                firstName: $('#change-user-first-name').val(),
+                lastName: $('#change-user-last-name').val()
+            },
+            success: function(data){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+                refreshUserManagementScreen();
+                $("#edit-user-name-modal").modal('hide');
+            },
+            error:  function(){
+                $('#edit-user-name-error').text('Something went wrong saving your edited name.');
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+            }
+        });
+    });
+
+    // Opens Edit phone number Modal
+    $("#editPhone").on('click', function(){
+        $("#edit-user-phone-number-modal").modal('show');
+    });
+
+    $("#edit-user-phone-number-modal").on('show.bs.modal', function(){
+         $('#change-user-phone-number').val($('#management-phone-number').text());
+         $('#change-user-phone-number').focus();
+     });
+
+    // submit function for edit phonenumber form modal.
+    $("#submit-user-phone-number-form").on('click', function(){
+        var $this = $(this);
+        $this.button('loading');
+        $('.cancel-button').prop('disabled', true);
+        $.ajax({
+            url: '/rest/account/management/change/phonenumber',
+            type: "PUT",
+            data: {
+                phoneNumber: $('#change-user-phone-number').val().replace(/-/g,"").replace(/[{()}]/g,"").replace(/\s/g,'')
+            },
+            success: function(data){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+                refreshUserManagementScreen();
+                $("#edit-user-phone-number-modal").modal('hide');
+            },
+            error:  function(){
+                $this.button('reset');
+                $('.cancel-button').prop('disabled', false);
+                $('#edit-user-phone-number-error').text('Something went wrong saving your edited phone number.');
+            }
+        });
+    });
+
+    // function refreshes user management screen
+    function refreshUserManagementScreen(){
+        $.ajax({
+            url: '/rest/account/management',
+            type: "GET",
+            success: function(data){
+                $('#management-username').text(data.username);
+                $('#management-full-name').text(data.fullName);
+                $('#management-phone-number').text(data.formattedPhoneNumber);
+                $('#editFirstName').val(toTitleCase(data.firstName));
+                $('#editLastName').val(toTitleCase(data.lastName));
+            },
+            error:  function(){
+                console.log('Something went wrong');
+            }
+        });
+    }
+
+// End Account Management Functionality
+
+// Useful Functions
+
     function toTitleCase(str)
     {
         return str.toLowerCase().replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     }
+
+// End Useful Functions
 
 })

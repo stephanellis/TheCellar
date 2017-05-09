@@ -7,8 +7,8 @@
 <body>
 <div layout:fragment="content">
     <p><span th:text="${name}"></span>,</p>
-    <p>This email was recently registered at The Cellar. If you did not do this, you need not take any action, the
-    registration associate to this email wil be deleted in 48 hours.</p>
+    <p>This email was recently registered at The Cellar. If you did not do this, you need not take any action.</p>
+    <p th:if="${isUserNew}">The registration associated to this email wil be deleted in 48 hours.</p>
     <p>If you would like to continue your registration please click the following link
         <a th:text="${urlToVerifyEmail}" th:href="${urlToVerifyEmail}"></a></p>
 </div>

@@ -83,9 +83,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         UserRole newRole = new UserRole(newUser);
         userRolesRepository.save(newRole);
         // create unique api token to verify email
-        emailVerificationService.generateVerificationUrl(newUser);
+        emailVerificationService.generateVerificationUrlNewUser(newUser);
         // Send confirmation email to new user
-        emailService.sendRegistrationEmail(newUser);
+        emailService.sendRegistrationEmail(newUser, true);
         return newUser;
     }
 

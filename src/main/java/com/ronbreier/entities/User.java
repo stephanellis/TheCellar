@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,12 +62,24 @@ public class User implements Serializable, Comparable{
     @Column(name="password_reset")
     private boolean passwordReset;
 
+    @JsonIgnore
+    @Column(name="date_created")
+    private Timestamp dateCreated;
+
     public boolean isPasswordReset() {
         return passwordReset;
     }
 
     public void setPasswordReset(boolean passwordReset) {
         this.passwordReset = passwordReset;
+    }
+
+    public Timestamp getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Timestamp dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public Long getUserId() {
@@ -135,6 +148,10 @@ public class User implements Serializable, Comparable{
 
     public String getFullName(){
         return WordUtils.capitalizeFully(getFirstName() + " " + getLastName());
+    }
+
+    public String getFormattedPhoneNumber(){
+        return this.phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)","($1) $2-$3");
     }
 
     public List<UserBeerLink> getUserBeerLinks() {

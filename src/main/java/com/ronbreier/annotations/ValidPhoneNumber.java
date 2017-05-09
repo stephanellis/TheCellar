@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Annotation to validate a phone number 10 digits
  */
 
-@Target({TYPE, FIELD, ANNOTATION_TYPE})
+@Target({TYPE, FIELD, ANNOTATION_TYPE, PARAMETER})
 @Retention(RUNTIME)
 @Constraint(validatedBy = PhoneNumberValidator.class)
 @Documented

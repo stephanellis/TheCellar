@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
+
+<head>
+
+    <title>Account Management</title>
+
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Account Management Page -->
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-transparent">
+                <div class="panel-heading text-center">
+                    <h1>Account Management</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div id="account-management-form" class="col-md-6 col-md-offset-3 text-center">
+                            <p><b>Click on any of the values below to edit them.</b></p>
+                            <p id="editEmail">Email: <span id="management-username"></span></p>
+                            <p id="editName">Name: <span id="management-full-name"></span></p>
+                            <p id="editPhone">Phone Number: <span id="management-phone-number"></span></p>
+                            <input type="hidden" id="editFirstName" />
+                            <input type="hidden" id="editLastName" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Account Management Page -->
+
+    <!-- Add Beer Modal -->
+    <div th:replace="fragments/accountManagementModals"></div>
+    <!-- /Add Beer Modal -->
+
+</div>
+
+</body>
+
+</html>
