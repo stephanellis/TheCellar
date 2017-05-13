@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 </head>
 <body>
@@ -11,6 +11,7 @@
         <a th:href="@{/dashboard}" ><i class="glyphicon glyphicon-dashboard"></i>Dashboard</a>
         <a th:href="@{/inventory}" ><i class="glyphicon glyphicon-grain"></i>Inventory</a>
         <a th:href="@{/account/management}"><i class="glyphicon glyphicon-user"></i>Manage Account</a>
+        <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin}"><i class="glyphicon glyphicon-tasks"></i>Admin Panel</a>
         <a th:href="@{/logout}" ><i class="glyphicon glyphicon-log-out"></i>Logout</a>
     </div>
 
