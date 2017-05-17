@@ -21,11 +21,42 @@
                     <h1>Admin Console</h1>
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-2 col-md-offset-5">
-                            <p>Administrate.</p>
+                    <div class="panel-group" id="accordion">
+                        <!-- Accordion controls -->
+                        <div class="row text-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-gray accordion-toggle" data-toggle="collapse" data-target="#manage-users" data-parent="#accordion">Manage Users</button>
+                                <button type="button" class="btn btn-gray accordion-toggle" data-toggle="collapse" data-target="#manage-beers" data-parent="#accordion">Mange Beers</button>
+                            </div>
+                        </div>
+                        <!-- /Accordion controls -->
+                        <!-- Accordion items -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#manage-users">1. What is HTML?</a>
+                                </h4>
+                            </div>
+                            <div id="manage-users" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <p>HTML stands for HyperText Markup Language. HTML is the main markup language for describing the structure of Web pages. <a href="http://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#manage-beers">2. What is Bootstrap?</a>
+                                </h4>
+                            </div>
+                            <div id="manage-beers" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <p>Bootstrap is a powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- /Accordion items -->
                 </div>
             </div>
         </div>
