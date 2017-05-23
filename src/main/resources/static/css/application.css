@@ -220,7 +220,7 @@ body {
 
 .panel-clear {
     background-color: rgba(0, 0, 0, 0.0) !important;
-    padding:10px !important;
+    border: 0;
 }
 
 .panel-heading
@@ -299,5 +299,5 @@ a.btn :hover{
 }
 
 .accordion-buttons{
-    margin-bottom: 6px;
+    margin-bottom: 10px;
 }

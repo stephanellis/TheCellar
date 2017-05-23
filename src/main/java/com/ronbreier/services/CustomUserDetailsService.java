@@ -82,6 +82,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         // Create default role for new User Object
         UserRole newRole = new UserRole(newUser);
         userRolesRepository.save(newRole);
+        // test to see if this is the first user.  If so make it the super user.
+        if(isFirstUser()){
+            UserRole adminRole = new UserRole(newUser, "ROLE_ADMIN");
+            userRolesRepository.save(adminRole);
+            UserRole superRole = new UserRole(newUser, "ROLE_SUPER");
+            userRolesRepository.save(superRole);
+        }
         // create unique api token to verify email
         emailVerificationService.generateVerificationUrlNewUser(newUser);
         // Send confirmation email to new user
@@ -138,4 +145,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return sb.toString();
     }
 
+    private boolean isFirstUser(){
+        return userRepository.count() == 1;
+    }
 }

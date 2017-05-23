@@ -5,6 +5,9 @@
 
 <head>
 
+    <!-- Admin Javascript -->
+    <script th:src="@{/js/admin.js}"></script>
+
     <title>Admin Console</title>
 
 </head>
@@ -31,20 +34,56 @@
                         </div>
                         <!-- /Accordion controls -->
                         <!-- Accordion items -->
+                        <!-- First item is the default instruction panel -->
+                        <div class="panel panel-clear">
+                            <div class="panel-collapse collapse in">
+                                <div class="panel-body text-center">
+                                    <p>Use the buttons above to access various administrative tasks</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /First item -->
+                        <!-- Admin Users Table item -->
                         <div class="panel panel-clear">
                             <div id="manage-users" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p>HTML stands for HyperText Markup Language. HTML is the main markup language for describing the structure of Web pages. <a href="http://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
+                                    <table id="admin-users-table" class="table nowrap data-numbers pre-scrollable"
+                                           aria-describedby="admin-users-table" role="grid" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>Username</th>
+                                            <th>Phone Number</th>
+                                            <th>Roles</th>
+                                            <th>Active</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                        <!-- /Admin Users Table item -->
+                        <!-- Admin Beer Table item -->
                         <div class="panel panel-clear">
                             <div id="manage-beers" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <p>Bootstrap is a powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
+                                    <table id="admin-beers-table" class="table nowrap data-numbers pre-scrollable"
+                                           aria-describedby="admin-beers-table" role="grid" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Brewer</th>
+                                            <th>Beer</th>
+                                            <th>Style</th>
+                                            <th>Year</th>
+                                            <th>ABV</th>
+                                            <th>Count</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                        <!-- /Admin Beer Table item -->
                     </div>
                     <!-- /Accordion items -->
                 </div>

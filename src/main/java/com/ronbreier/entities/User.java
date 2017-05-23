@@ -51,7 +51,7 @@ public class User implements Serializable, Comparable{
     private Integer loginCount;
 
     @Column(name="enabled")
-    @JsonIgnore
+    @JsonProperty("enabled")
     private int enabled;
 
     @JsonIgnore

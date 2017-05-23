@@ -55,6 +55,10 @@ public class Beer implements Serializable, Comparable {
     @JsonProperty("year")
     private String year;
 
+    @Column(name="verified")
+    @JsonProperty("verified")
+    private boolean verified;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "beer")
     private List<UserBeerLink> userBeerLinks = new ArrayList<>();
@@ -139,6 +143,14 @@ public class Beer implements Serializable, Comparable {
         this.glassware = glassware;
     }
 
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
     public Beer(){
         // Zero Arg Constructor to satisfy JPA
     }
@@ -149,6 +161,7 @@ public class Beer implements Serializable, Comparable {
         this.abv = form.getAbv();
         this.style = form.getStyle().toUpperCase();
         this.year = form.getYear();
+        this.verified = false;
     }
 
     @Override
