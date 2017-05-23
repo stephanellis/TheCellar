@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ulteraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
+
+<head>
+
+    <!-- Admin Javascript -->
+    <script th:src="@{/js/admin.js}"></script>
+
+    <title>Admin Console</title>
+
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <!-- Dashboard Page -->
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-transparent">
+                <div class="panel-heading text-center">
+                    <h1>Admin Console</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="panel-group" id="accordion">
+                        <!-- Accordion controls -->
+                        <div class="row text-center accordion-buttons">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-gray accordion-toggle" data-toggle="collapse" data-target="#manage-users" data-parent="#accordion">Manage Users</button>
+                                <button type="button" class="btn btn-gray accordion-toggle" data-toggle="collapse" data-target="#manage-beers" data-parent="#accordion">Mange Beers</button>
+                            </div>
+                        </div>
+                        <!-- /Accordion controls -->
+                        <!-- Accordion items -->
+                        <!-- First item is the default instruction panel -->
+                        <div class="panel panel-clear">
+                            <div class="panel-collapse collapse in">
+                                <div class="panel-body text-center">
+                                    <p>Use the buttons above to access various administrative tasks</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /First item -->
+                        <!-- Admin Users Table item -->
+                        <div class="panel panel-clear">
+                            <div id="manage-users" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table id="admin-users-table" class="table nowrap data-numbers pre-scrollable"
+                                           aria-describedby="admin-users-table" role="grid" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>Username</th>
+                                            <th>Phone Number</th>
+                                            <th>Roles</th>
+                                            <th>Active</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Admin Users Table item -->
+                        <!-- Admin Beer Table item -->
+                        <div class="panel panel-clear">
+                            <div id="manage-beers" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table id="admin-beers-table" class="table nowrap data-numbers pre-scrollable"
+                                           aria-describedby="admin-beers-table" role="grid" cellspacing="0" width="100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Brewer</th>
+                                            <th>Beer</th>
+                                            <th>Style</th>
+                                            <th>Year</th>
+                                            <th>ABV</th>
+                                            <th>Count</th>
+                                            <th>Verified</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Admin Beer Table item -->
+                    </div>
+                    <!-- /Accordion items -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Dashboard Page -->
+
+</div>
+
+</body>
+
+</html>

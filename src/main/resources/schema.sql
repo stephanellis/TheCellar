@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS beers (
     description LONGTEXT,
     glassware VARCHAR(25),
     beer_year VARCHAR(4) NOT NULL,
+    verified TINYINT(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (beer_id)
 );
 

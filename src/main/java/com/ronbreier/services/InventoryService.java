@@ -32,6 +32,10 @@ public class InventoryService {
         return new DataTablesResponse<>(userBeerLinkRepository.findByUserId(userId));
     }
 
+    public DataTablesResponse<UserBeerLink> getAllBeersForTable() {
+        return new DataTablesResponse<>(userBeerLinkRepository.findAll());
+    }
+
     public void saveNewUserBeerLink(User user, AddBeerForm form){
         LOGGER.info("Saving new link " + user + form);
         Beer beer = beerRepository.save(new Beer(form));

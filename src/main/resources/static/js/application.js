@@ -397,6 +397,8 @@ $(function(){
 
 // End Account Management Functionality
 
+})
+
 // Useful Functions
 
     function toTitleCase(str)
@@ -405,5 +407,3 @@ $(function(){
     }
 
 // End Useful Functions
-
-})

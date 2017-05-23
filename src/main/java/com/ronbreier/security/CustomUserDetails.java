@@ -64,4 +64,7 @@ public class CustomUserDetails extends User implements UserDetails {
         return user;
     }
 
+    public String getUserRolesString(){
+        return StringUtils.collectionToCommaDelimitedString(userRoles);
+    }
 }
