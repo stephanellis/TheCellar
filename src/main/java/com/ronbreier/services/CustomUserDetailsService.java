@@ -148,4 +148,5 @@ public class CustomUserDetailsService implements UserDetailsService {
     private boolean isFirstUser(){
         return userRepository.count() == 1;
     }
+
 }

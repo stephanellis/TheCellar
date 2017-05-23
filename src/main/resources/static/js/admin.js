@@ -15,7 +15,7 @@ $(function(){
                  }
             },
             {data: "username"},
-            {data: "formattedPhoneNumber"}.
+            {data: "formattedPhoneNumber"},
             {data: "userRolesString"},
             {data: "user.enabled",
                 render: function(data, type, full, meta){
@@ -29,15 +29,9 @@ $(function(){
         ],
         buttons:[
             {
-                text: "Edit",
+                text: "Contact",
                 action: function (e, dt, node, config){
-                    alert('Add ADMIN editing capability');
-                }
-            },
-            {
-                text: "Verify",
-                action: function (e, dt, node, config){
-                    alert('Add verification with API call');
+                    alert('Add Messaging Functionality');
                 }
             }
         ]
@@ -74,7 +68,16 @@ $(function(){
                     return data + '%'
                 }
             },
-            {data: "count"}
+            {data: "count"},
+            {data: "beer.verified",
+                 render: function(data, type, full, meta){
+                     if (data == true){
+                         return 'Yes';
+                     } else {
+                         return 'No';
+                     }
+                 }
+            }
         ],
         buttons:[
             {
