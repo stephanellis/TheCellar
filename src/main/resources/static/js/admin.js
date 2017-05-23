@@ -33,6 +33,12 @@ $(function(){
                 action: function (e, dt, node, config){
                     alert('Add Messaging Functionality');
                 }
+            },
+            {
+                text: "Promote",
+                action: function (e, dt, node, config){
+                    alert('Add Role Promotion Functionality');
+                }
             }
         ]
     });
