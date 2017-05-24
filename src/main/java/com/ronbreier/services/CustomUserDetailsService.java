@@ -90,7 +90,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             userRolesRepository.save(superRole);
         }
         // create unique api token to verify email
-        emailVerificationService.generateVerificationUrlNewUser(newUser);
+        emailVerificationService.generateVerificationUrlUser(newUser, true);
         // Send confirmation email to new user
         emailService.sendRegistrationEmail(newUser, true);
         return newUser;

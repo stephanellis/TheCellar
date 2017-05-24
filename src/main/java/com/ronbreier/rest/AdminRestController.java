@@ -41,8 +41,8 @@ public class AdminRestController {
     @GetMapping("/users")
     public DataTablesResponse<CustomUserDetails> getAllUser(@ActiveUser CustomUserDetails userDetails){
         LOGGER.info("Getting all Users under active user's access roles " + userDetails.getUserRolesString() + " for admin User" + userDetails.getUsername());
-        DataTablesResponse<CustomUserDetails> usersWithLesserRoles  = userService.getUsersAndRolesWithLowerRoleForTable(userDetails);
-        return usersWithLesserRoles;
+        DataTablesResponse<CustomUserDetails> allUsers  = userService.getAllUsersForTable();
+        return allUsers;
     }
 
 }

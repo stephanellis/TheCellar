@@ -43,6 +43,15 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public DataTablesResponse<CustomUserDetails> getAllUsersForTable(){
+        List<User> allUsers = userRepository.findAll();
+        List<CustomUserDetails> usersWithRoles = new ArrayList<>();
+        for (User u: allUsers){
+            usersWithRoles.add(new CustomUserDetails(u, userRolesRepository.findRoleByUsername(u.getUsername())));
+        }
+        return new DataTablesResponse<>(usersWithRoles);
+    }
+
     public DataTablesResponse<CustomUserDetails> getUsersAndRolesWithLowerRoleForTable(CustomUserDetails userDetails){
         List<User> usersWithLesserRoles = userRepository.findAll();
         String topRole = "ROLE_ADMIN";

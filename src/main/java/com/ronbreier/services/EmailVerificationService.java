@@ -19,22 +19,12 @@ public class EmailVerificationService {
     @Autowired
     private EmailVerificationRepository emailVerificationRepository;
 
-    public void generateVerificationUrlNewUser(User user){
+    public void generateVerificationUrlUser(User user, boolean isUserNew){
         LOGGER.info("Generating an email verification key for user " + user.getUsername());
-        StringBuilder token = new StringBuilder(100);
         EmailVerification emailVerification = new EmailVerification(user);
+        emailVerification.setNewUser(isUserNew);
         emailVerificationRepository.save(emailVerification);
         LOGGER.info("New token object: " + emailVerification);
     }
-
-    public void generateVerificationUrlExistingUser(User user){
-        LOGGER.info("Generating an email verification key for user " + user.getUsername());
-        StringBuilder token = new StringBuilder(100);
-        EmailVerification emailVerification = new EmailVerification(user);
-        emailVerification.setNewUser(false);
-        emailVerificationRepository.save(emailVerification);
-        LOGGER.info("New token object: " + emailVerification);
-    }
-
 
 }

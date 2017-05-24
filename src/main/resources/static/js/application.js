@@ -134,6 +134,7 @@ $(function(){
         ]
     });
 
+    // deselects everything upon inventory table draw
     inventoryTable.on( 'draw', function () {
         inventoryTable.button(1).enable(false);
         inventoryTable.button(2).enable(false);

@@ -96,6 +96,7 @@ public class EmailVerification implements Serializable {
         token.append(System.currentTimeMillis() / 1000L);
         token.append(user.getLastName());
         token.append(makeRandomOfLength(100 - token.toString().length()));
+
         return token.toString();
     }
 
