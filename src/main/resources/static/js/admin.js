@@ -101,4 +101,53 @@ $(function(){
         ]
     });
 
+    // deselects everything upon inventory table draw and disables buttons
+    adminBeerTable.on('draw', function () {
+        deselectAllFromAdminBeerTable(adminBeerTable)
+    });
+
+    // enables and disables buttons upon any selection for inventory table
+    adminBeerTable.on('select deselect', function(){
+        resetAdminBeerTable(adminBeerTable);
+    });
+
+    // deselects everything upon user table draw and disables buttons
+    adminUserTable.on( 'draw', function () {
+        deselectAllFromAdminUserTable(adminUserTable);
+    });
+
+    // enables and disables buttons upon any selection for inventory table for user table
+    adminUserTable.on('select deselect', function(){
+        resetAdminUserTable(adminUserTable);
+    });
+
+    $('.accordion-item').on('hidden.bs.collapse', function(e){
+        deselectAllFromAdminUserTable(adminUserTable);
+        deselectAllFromAdminBeerTable(adminBeerTable);
+    });
+
 })
+
+// Useful Functions
+
+    function resetAdminUserTable(adminUserTable) {
+        var selectedRows = adminUserTable.rows({selected: true}).count();
+        adminUserTable.button(0).enable(selectedRows>0);
+        adminUserTable.button(1).enable(selectedRows>0);
+    }
+
+    function deselectAllFromAdminUserTable(adminUserTable) {
+        adminUserTable.rows().deselect();
+    }
+
+    function resetAdminBeerTable(adminBeerTable) {
+        var selectedRows = adminBeerTable.rows({selected: true}).count();
+        adminBeerTable.button(0).enable(selectedRows>0);
+        adminBeerTable.button(1).enable(selectedRows>0);
+    }
+
+    function deselectAllFromAdminBeerTable(adminBeerTable) {
+        adminBeerTable.rows().deselect();
+    }
+
+// End Useful Functions

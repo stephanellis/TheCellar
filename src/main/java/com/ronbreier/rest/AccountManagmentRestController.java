@@ -53,7 +53,7 @@ public class AccountManagmentRestController {
         LOGGER.info("Locking user " + user);
         user.setEnabled(0);
         userService.saveUser(user);
-        emailVerificationService.generateVerificationUrlExistingUser(user);
+        emailVerificationService.generateVerificationUrlUser(user, false);
         // Send confirmation email to user
         emailService.sendRegistrationEmail(user, false);
         SecurityContextHolder.clearContext();
