@@ -11,7 +11,7 @@ $(function(){
         columns: [
             {data: "fullName",
                  render: function(data, type, full, meta){
-                    return toTitleCase(data) + '<span class="hidden-pk">'+ full.userId + '</span>'
+                    return '<span class="full-name">' + toTitleCase(data) + '</span><span class="hidden-pk">'+ full.userId + '</span>'
                  }
             },
             {data: "username"},
@@ -31,7 +31,7 @@ $(function(){
             {
                 text: "Contact",
                 action: function (e, dt, node, config){
-                    alert('Add Messaging Functionality');
+                    $('#admin-contact-user-form-modal').modal('show');
                 }
             },
             {
@@ -124,6 +124,24 @@ $(function(){
     $('.accordion-item').on('hidden.bs.collapse', function(e){
         deselectAllFromAdminUserTable(adminUserTable);
         deselectAllFromAdminBeerTable(adminBeerTable);
+    });
+
+    // Clears Mesage text area and populates user name and email upon showing modal
+    $('#admin-contact-user-form-modal').on('show.bs.modal', function(){
+        $('#admin-contact-user-form-error').text('');
+        $('#admin-send-message').val('');
+        var selectedUserId;
+        var selectedUserName;
+        var selectedUserEmail;
+        $.each($("#admin-users-table tr.selected"), function(){
+            selectedRow = ($(this).find('td').eq(0).find('.hidden-pk').text());
+            selectedUserId = ($(this).find('.hidden-pk').eq(0).text());
+            selectedUserName = ($(this).find('.full-name').eq(0).text());
+            selectedUserEmail = ($(this).find('td').eq(1).text());
+        });
+        $('#admin-contact-user-name').text(selectedUserName);
+        $('#admin-contact-user-email').text(selectedUserEmail);
+        $('#admin-contact-user-id').val(selectedUserId);
     });
 
 })
