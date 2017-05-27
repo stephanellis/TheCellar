@@ -2,7 +2,7 @@ version: "2"
 services:
   mariadb:
     image: mariadb
-    name: thecellar_db
+    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: SuperSecretPassword
       MYSQL_USER: cellar
@@ -10,9 +10,9 @@ services:
       MYSQL_DATABASE: cellar
   thecellar:
     build: .
-    name: thecellar_web
+    container_name: web
     environment:
-      CELLAR_CON_STRING_DEV: jdbc:mysql://mariadb/cellar
+      CELLAR_CON_STRING_DEV: jdbc:mysql://thecellar_db/cellar
       CELLAR_USER_DEV: cellar
       CELLAR_PASS_DEV: SecretPassword
     links:
