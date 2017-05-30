@@ -1,7 +1,7 @@
-FROM maven:3.2-jdk-8 AS builder
+FROM maven:3.5-jdk-8 AS builder
 COPY . /usr/src/app
 WORKDIR /usr/src/app
-CMD mvn clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 FROM java:8-jdk-alpine
 WORKDIR /

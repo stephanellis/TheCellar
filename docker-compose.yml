@@ -9,8 +9,11 @@ services:
       MYSQL_PASSWORD: SecretPassword
       MYSQL_DATABASE: cellar
   thecellar:
+    privileged: true
     build: .
     container_name: web
+    ports:
+      - 8080:8080
     environment:
       CELLAR_CON_STRING_DEV: jdbc:mysql://thecellar_db/cellar
       CELLAR_USER_DEV: cellar
