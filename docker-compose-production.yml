@@ -42,6 +42,8 @@ services:
   mariadb:
     image: mariadb
     container_name: db
+    volumes:
+      - "/data/thecellar/mariadb:/var/lib/mysql:Z"
     environment:
       MYSQL_ROOT_PASSWORD: SuperSecretPassword
       MYSQL_USER: cellar
